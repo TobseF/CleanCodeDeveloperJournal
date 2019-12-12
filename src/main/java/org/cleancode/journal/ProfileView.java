@@ -6,6 +6,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.service.INameService;
@@ -31,6 +32,11 @@ public class ProfileView extends VerticalLayout {
         userName.setLabel(getTranslation("user.name"));
         nameSelection.add(userName);
 
+        PasswordField passwordField = new PasswordField();
+        passwordField.setLabel(getTranslation("user.password"));
+        add(passwordField);
+
+
         Button newName = new Button();
         newName.addClickListener((e) -> generateNewUserName());
         newName.setIcon(new Icon(VaadinIcon.REFRESH));
@@ -45,6 +51,6 @@ public class ProfileView extends VerticalLayout {
     public void generateNewUserName() {
         String newName = nameService.getRandomName();
         userName.setValue(newName);
-        Notification.show("Your new name is " + newName);
+        Notification.show(getTranslation("profile.action.changed-username", newName));
     }
 }
