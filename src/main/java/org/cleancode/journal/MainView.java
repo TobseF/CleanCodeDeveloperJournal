@@ -8,11 +8,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
+import com.vaadin.flow.theme.material.Material;
 
 //@PreserveOnRefresh
 @Route
-@PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal")
 @CssImport("./styles/shared-styles.css")
+@Theme(value = Material.class, variant = Lumo.DARK)
+@PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal")
 public class MainView extends AppLayout {
 
     public MainView() {
