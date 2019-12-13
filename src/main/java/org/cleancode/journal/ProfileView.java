@@ -36,7 +36,6 @@ public class ProfileView extends VerticalLayout {
         passwordField.setLabel(getTranslation("user.password"));
         add(passwordField);
 
-
         Button newName = new Button();
         newName.addClickListener((e) -> generateNewUserName());
         newName.setIcon(new Icon(VaadinIcon.REFRESH));

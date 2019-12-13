@@ -1,8 +1,9 @@
 package org.cleancode.journal.domain.grade;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GradeRating {
+public class GradeRating implements Serializable {
 
     private StarsOutOf3 evolvability = StarsOutOf3._0;
     private StarsOutOf3 correctness = StarsOutOf3._0;

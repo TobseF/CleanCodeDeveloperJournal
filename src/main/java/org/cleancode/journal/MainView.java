@@ -25,8 +25,9 @@ public class MainView extends AppLayout {
         final RouterLink journal = new RouterLink(getTranslation("app.menu.journal"), JournalView.class);
         final RouterLink profile = new RouterLink(getTranslation("app.menu.profile"), ProfileView.class);
         final RouterLink achievements = new RouterLink(getTranslation("app.menu.achievements"), AchievementsView.class);
+        final RouterLink compendium = new RouterLink(getTranslation("app.menu.compendium"), CompendiumView.class);
         final RouterLink about = new RouterLink(getTranslation("app.menu.about"), AboutView.class);
-        final VerticalLayout menuLayout = new VerticalLayout(journal, profile, achievements, about);
+        final VerticalLayout menuLayout = new VerticalLayout(journal, profile, achievements, compendium, about);
         addToDrawer(menuLayout);
         addToNavbar(drawerToggle);
         addToNavbar(new H4(getTranslation("app.name")));

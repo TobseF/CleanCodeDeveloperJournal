@@ -32,7 +32,6 @@ public class JournalView extends VerticalLayout {
         H1 grade = new H1("black");
         gradeStatusBar.add(grade);
 
-
         GradeProgressBar progressBar = new GradeProgressBar();
         gradeStatusBar.add(progressBar);
         progressBar.setDays(mapEntityToUiModel(progressService.getCurrentProgress()));

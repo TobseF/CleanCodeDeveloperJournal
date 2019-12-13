@@ -1,8 +1,9 @@
 package org.cleancode.journal.domain.grade;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GradeSource {
+public class GradeSource implements Serializable {
     private String source;
     private String author;
     private String description;

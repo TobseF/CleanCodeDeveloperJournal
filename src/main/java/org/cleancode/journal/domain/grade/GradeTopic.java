@@ -1,16 +1,19 @@
 package org.cleancode.journal.domain.grade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GradeTopic {
+public class GradeTopic implements Serializable {
 
     private String name;
     private String id;
     private String sectionWhy;
     private String description;
     private GradeRating gradeRating;
+
+    private transient Grade grade;
 
     private List<GradeSource> sources = new ArrayList<>();
 
@@ -60,6 +63,15 @@ public class GradeTopic {
 
     public void setSources(List<GradeSource> sources) {
         this.sources = sources;
+    }
+
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
     }
 
     @Override

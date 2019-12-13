@@ -1,15 +1,23 @@
 package org.cleancode.journal.domain.grade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Stream;
 
-public class Grade {
+import static java.util.stream.Collectors.toList;
+
+public class Grade implements Serializable {
 
     private Locale locale;
     private GradeColor gradeColor;
     private int number;
+
+    public List<GradeTopic> listAllGradeTopics() {
+        return Stream.concat(principles.stream(), practices.stream()).collect(toList());
+    }
 
     private List<Principle> principles = new ArrayList<>();
     private List<Practice> practices = new ArrayList<>();
