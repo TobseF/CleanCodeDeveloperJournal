@@ -8,4 +8,9 @@ public enum GradeColor implements Serializable {
     public int getNumber() {
         return ordinal();
     }
+
+    @Override
+    public String toString() {
+        return "Grade " + ordinal() + " " + name();
+    }
 }

@@ -82,4 +82,9 @@ public class Grade implements Serializable {
     public int hashCode() {
         return Objects.hash(locale, gradeColor, number, principles, practices);
     }
+
+    @Override
+    public String toString() {
+        return gradeColor.toString();
+    }
 }
