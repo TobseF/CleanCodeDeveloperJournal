@@ -1,4 +1,4 @@
-package org.cleancode.journal;
+package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.Icon;
@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.service.INameService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,6 +41,8 @@ public class ProfileView extends VerticalLayout {
         newName.addClickListener((e) -> generateNewUserName());
         newName.setIcon(new Icon(VaadinIcon.REFRESH));
         nameSelection.add(newName);
+
+        add(new AddSpeedDial());
     }
 
     @PostConstruct

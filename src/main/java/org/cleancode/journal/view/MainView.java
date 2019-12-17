@@ -1,4 +1,4 @@
-package org.cleancode.journal;
+package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -31,6 +31,7 @@ public class MainView extends AppLayout {
         addToDrawer(menuLayout);
         addToNavbar(drawerToggle);
         addToNavbar(new H4(getTranslation("app.name")));
+
     }
 
 

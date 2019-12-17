@@ -1,4 +1,4 @@
-package org.cleancode.journal;
+package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Label;
@@ -6,6 +6,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.cleancode.journal.service.IGradeService;
 
@@ -26,6 +27,8 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
 
         description = new Label();
         add(description);
+
+        add(new AddSpeedDial());
     }
 
     @Override

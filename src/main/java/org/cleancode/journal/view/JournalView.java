@@ -1,9 +1,10 @@
-package org.cleancode.journal;
+package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.component.GradeProgressBar;
 import org.cleancode.journal.component.GradeProgressBar.ProgressDay;
 import org.cleancode.journal.domain.Day;
@@ -35,6 +36,8 @@ public class JournalView extends VerticalLayout {
         GradeProgressBar progressBar = new GradeProgressBar();
         gradeStatusBar.add(progressBar);
         progressBar.setDays(mapEntityToUiModel(progressService.getCurrentProgress()));
+
+        add(new AddSpeedDial());
     }
 
     private List<ProgressDay> mapEntityToUiModel(Progress progress) {

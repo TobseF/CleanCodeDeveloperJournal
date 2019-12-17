@@ -1,4 +1,4 @@
-package org.cleancode.journal;
+package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.accordion.Accordion;
@@ -12,6 +12,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.cleancode.journal.domain.grade.Practice;
@@ -44,6 +45,7 @@ public class CompendiumView extends VerticalLayout {
         add(controls);
         controls.add(createModeSelect());
         TextField filter = new TextField();
+
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.setLabel("Filter");
         filter.setPlaceholder("Search...");
@@ -57,6 +59,8 @@ public class CompendiumView extends VerticalLayout {
         add(tree);
 
         setViewMode(defaultViewMode);
+
+        add(new AddSpeedDial());
     }
 
     public void filter(String filterText, IGradeService gradeService) {

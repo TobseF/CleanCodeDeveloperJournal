@@ -2,9 +2,10 @@
   "name": "no-name",
   "license": "UNLICENSED",
   "dependencies": {
+    "@cwmr/paper-fab-speed-dial": "^3.0.0",
     "@polymer/polymer": "3.2.0",
-    "@webcomponents/webcomponentsjs": "^2.2.10",
-    "@vaadin/flow-deps": "./target/frontend"
+    "@vaadin/flow-deps": "./target/frontend",
+    "@webcomponents/webcomponentsjs": "^2.2.10"
   },
   "devDependencies": {
     "webpack": "4.30.0",
@@ -19,5 +20,5 @@
   "vaadin": {
     "disableUsageStatistics": true
   },
-  "vaadinAppPackageHash": "b2f813de2283db3e35c39e6ad9092abf3af119a95bd69e3dce8e3fcdd867f876"
+  "vaadinAppPackageHash": "6cd3fca33b7c2c94347ef9cdfa744f91fafc089e108f50731b0b9c6535a85f75"
 }
