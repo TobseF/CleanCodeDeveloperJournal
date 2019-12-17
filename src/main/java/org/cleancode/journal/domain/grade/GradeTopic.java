@@ -86,4 +86,10 @@ public class GradeTopic implements Serializable {
     public int hashCode() {
         return Objects.hash(name, id, sectionWhy, description, gradeRating, sources);
     }
+
+    @Override
+    public String toString() {
+        return grade + " " + id;
+    }
+
 }

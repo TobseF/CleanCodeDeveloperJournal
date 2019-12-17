@@ -5,6 +5,7 @@ import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,4 +17,6 @@ public interface IGradeService {
     Grade getGrade(GradeColor gradeColor, Locale locale);
 
     List<Grade> getAllGrades(Locale locale);
+
+    Collection<GradeTopic> getAllTopics(Locale locale);
 }

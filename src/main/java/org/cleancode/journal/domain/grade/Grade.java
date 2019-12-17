@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
-public class Grade implements Serializable {
+public class Grade implements Serializable, Comparable<Grade> {
 
     private Locale locale;
     private GradeColor gradeColor;
@@ -86,5 +86,10 @@ public class Grade implements Serializable {
     @Override
     public String toString() {
         return gradeColor.toString();
+    }
+
+    @Override
+    public int compareTo(Grade grade) {
+        return grade.compareTo(this);
     }
 }

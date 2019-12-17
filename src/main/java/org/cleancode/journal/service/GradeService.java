@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStreamReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -51,5 +52,10 @@ public class GradeService implements IGradeService {
     @Override
     public List<Grade> getAllGrades(Locale locale) {
         return allGrades.stream().map(color -> getGrade(color, locale)).collect(toList());
+    }
+
+    @Override
+    public Collection<GradeTopic> getAllTopics(Locale locale) {
+        return topics.values();
     }
 }
