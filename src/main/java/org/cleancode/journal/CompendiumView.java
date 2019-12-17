@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.vaadin.flow.data.provider.SortDirection.ASCENDING;
+import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
@@ -80,7 +81,7 @@ public class CompendiumView extends VerticalLayout {
     private Accordion createTree(Collection<GradeTopic> gradeTopics) {
         Accordion tree = new Accordion();
         Map<Grade, List<GradeTopic>> groupedTopics = gradeTopics.stream().collect(groupingBy(GradeTopic::getGrade));
-        groupedTopics.keySet().stream().sorted().forEach(grade -> addGrade(tree, grade, groupedTopics.get(grade)));
+        groupedTopics.keySet().stream().sorted(reverseOrder()).forEach(grade -> addGrade(tree, grade, groupedTopics.get(grade)));
 
         tree.close();
         return tree;
