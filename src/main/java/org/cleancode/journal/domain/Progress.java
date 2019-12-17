@@ -2,6 +2,7 @@ package org.cleancode.journal.domain;
 
 import org.cleancode.journal.util.ToStringUtil;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
-public class Progress {
+public class Progress implements Serializable {
 
     private final int size;
     private LocalDate start;

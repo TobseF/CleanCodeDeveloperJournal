@@ -2,6 +2,8 @@ package org.cleancode.journal.service;
 
 import org.cleancode.journal.domain.Progress;
 
-public interface IProgressService {
+import java.io.Serializable;
+
+public interface IProgressService extends Serializable {
     Progress getCurrentProgress();
 }

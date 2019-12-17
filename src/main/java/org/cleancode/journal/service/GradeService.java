@@ -1,6 +1,7 @@
 package org.cleancode.journal.service;
 
 import com.google.gson.Gson;
+import com.vaadin.flow.server.VaadinService;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.domain.grade.GradeTopic;
@@ -8,19 +9,16 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStreamReader;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
 @Service
 public class GradeService implements IGradeService {
 
-    private HashMap<String, GradeTopic> topics = new HashMap<>();
-    private HashMap<GradeColor, Grade> grades = new HashMap<>();
-    private List<GradeColor> allGrades = List.of(GradeColor.Red, GradeColor.Orange);
+    private transient HashMap<String, GradeTopic> topics = new LinkedHashMap<>();
+    private transient HashMap<GradeColor, Grade> grades = new LinkedHashMap<>();
+    private transient List<GradeColor> allGrades = List.of(GradeColor.Red, GradeColor.Orange);
 
     @PostConstruct
     private void loadGradesFromFile() {
@@ -39,23 +37,34 @@ public class GradeService implements IGradeService {
     }
 
     @Override
-    public GradeTopic getGradeTopic(String gradeId, Locale locale) {
+    public GradeTopic loadGradeTopic(String gradeId, Locale locale) {
         return topics.get(gradeId);
     }
 
 
     @Override
-    public Grade getGrade(GradeColor gradeColor, Locale locale) {
+    public Grade loadGrade(GradeColor gradeColor, Locale locale) {
         return grades.get(gradeColor);
     }
 
     @Override
-    public List<Grade> getAllGrades(Locale locale) {
-        return allGrades.stream().map(color -> getGrade(color, locale)).collect(toList());
+    public List<Grade> loadAllGrades(Locale locale) {
+        return allGrades.stream().map(color -> loadGrade(color, locale)).collect(toList());
     }
 
     @Override
-    public Collection<GradeTopic> getAllTopics(Locale locale) {
-        return topics.values();
+    public Collection<GradeTopic> loadAllTopics(Locale locale) {
+        return new ArrayList<>(topics.values());
     }
+
+    @Override
+    public Collection<GradeTopic> loadTopics(Locale locale, String filter) {
+        return loadAllTopics(locale).stream().filter(topic -> filter(locale, topic, filter)).collect(toList());
+    }
+
+    private boolean filter(Locale locale, GradeTopic gradeTopic, String filter) {
+        String gradeColor = VaadinService.getCurrent().getInstantiator().getI18NProvider().getTranslation(gradeTopic.getGrade().getGradeColor().getMessageKey(), locale);
+        return gradeTopic.getName().toLowerCase().contains(filter) || gradeTopic.getDescription().toLowerCase().contains(filter) || gradeTopic.getSectionWhy().toLowerCase().contains(filter) || gradeColor.toLowerCase().contains(filter);
+    }
+
 }

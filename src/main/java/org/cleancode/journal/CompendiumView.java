@@ -5,61 +5,90 @@ import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeTopic;
+import org.cleancode.journal.domain.grade.Practice;
+import org.cleancode.journal.domain.grade.Principle;
 import org.cleancode.journal.service.IGradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import static com.vaadin.flow.data.provider.SortDirection.ASCENDING;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
 public class CompendiumView extends VerticalLayout {
 
-    private final Accordion tree;
-    private final Grid<GradeTopic> table;
     private final ViewMode defaultViewMode = ViewMode.Table;
+    private final Grid<GradeTopic> table;
+    private Accordion tree;
 
     @Autowired
     public CompendiumView(IGradeService gradeService) {
         add(new H2(getTranslation("app.menu.compendium")));
         setHeightFull();
 
-        addModeSelect();
-        table = creteTable(gradeService);
+        HorizontalLayout controls = new HorizontalLayout();
+        add(controls);
+        controls.add(createModeSelect());
+        TextField filter = new TextField();
+        filter.setValueChangeMode(ValueChangeMode.EAGER);
+        filter.setLabel("Filter");
+        filter.setPlaceholder("Search...");
+        filter.addValueChangeListener(event -> filter(event.getValue(), gradeService));
+        controls.add(filter);
+
+        Collection<GradeTopic> gradeTopics = gradeService.loadAllTopics(getLocale());
+        table = creteTable(gradeTopics);
         add(table);
-        tree = createTree(gradeService);
+        tree = createTree(gradeTopics);
         add(tree);
 
         setViewMode(defaultViewMode);
     }
 
-    private void addModeSelect() {
+    public void filter(String filterText, IGradeService gradeService) {
+        Collection<GradeTopic> filteredTopics = gradeService.loadTopics(getLocale(), filterText);
+        table.setItems(filteredTopics);
+
+        Accordion newTree = createTree(filteredTopics);
+        newTree.setVisible(tree.isVisible());
+        replace(this.tree, newTree);
+        tree = newTree;
+    }
+
+    private Select<ViewMode> createModeSelect() {
         Select<ViewMode> modeSelect = new Select<>();
         modeSelect.setItems(ViewMode.values());
         modeSelect.setValue(defaultViewMode);
         modeSelect.setLabel(getTranslation("compendium.mode"));
         modeSelect.addValueChangeListener(event -> setViewMode(event.getValue()));
-        add(modeSelect);
+        return modeSelect;
     }
 
-    private Accordion createTree(IGradeService gradeService) {
+    private Accordion createTree(Collection<GradeTopic> gradeTopics) {
         Accordion tree = new Accordion();
-        List<Grade> grades = gradeService.getAllGrades(Locale.ENGLISH);
-        grades.forEach(grade -> addGrade(tree, grade));
+        Map<Grade, List<GradeTopic>> groupedTopics = gradeTopics.stream().collect(groupingBy(GradeTopic::getGrade));
+        groupedTopics.keySet().stream().sorted().forEach(grade -> addGrade(tree, grade, groupedTopics.get(grade)));
+
         tree.close();
         return tree;
     }
 
-    private Grid<GradeTopic> creteTable(IGradeService gradeService) {
+    private Grid<GradeTopic> creteTable(Collection<GradeTopic> gradeTopics) {
         Grid<GradeTopic> table = new Grid<>();
-        table.setItems(gradeService.getAllTopics(Locale.ENGLISH));
+        table.setItems(gradeTopics);
 
         Grid.Column<GradeTopic> columnName = table.addColumn(GradeTopic::getName).
                 setHeader(getTranslation("domain.grade.name")).
@@ -77,6 +106,29 @@ public class CompendiumView extends VerticalLayout {
 
         table.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(this::openGradeTopic));
         return table;
+    }
+
+    public void addGrade(Accordion tree, Grade grade, Collection<GradeTopic> gradeTopics) {
+
+        Accordion gradeOverview = new Accordion();
+        gradeOverview.close();
+
+        VerticalLayout principlesGroup = new VerticalLayout();
+        List<GradeTopic> principles = gradeTopics.stream().filter(topic -> topic instanceof Principle).collect(toList());
+        principles.stream().map(this::createAnchor).forEach(principlesGroup::add);
+
+        VerticalLayout practicesGroup = new VerticalLayout();
+        List<GradeTopic> practices = gradeTopics.stream().filter(topic -> topic instanceof Practice).collect(toList());
+        practices.stream().map(this::createAnchor).forEach(practicesGroup::add);
+
+        if (!principles.isEmpty()) {
+            gradeOverview.add(getTranslation("domain.grade.principles"), principlesGroup);
+        }
+        if (!practices.isEmpty()) {
+            gradeOverview.add(getTranslation("domain.grade.practices"), practicesGroup);
+        }
+        String gradeName = getTranslation("compendium.grade", grade.getGradeColor().getNumber(), grade.getGradeColor().name());
+        tree.add(gradeName, gradeOverview);
     }
 
     private String formatTopic(GradeTopic topic) {
@@ -98,28 +150,11 @@ public class CompendiumView extends VerticalLayout {
         }
     }
 
-    public void addGrade(Accordion tree, Grade grade) {
-
-        Accordion gradeOverview = new Accordion();
-        gradeOverview.close();
-
-        VerticalLayout principlesLinks = new VerticalLayout();
-        grade.getPrinciples().stream().map(this::createAnchor).forEach(principlesLinks::add);
-
-        VerticalLayout practicesLinks = new VerticalLayout();
-        grade.getPractices().stream().map(this::createAnchor).forEach(practicesLinks::add);
-
-        gradeOverview.add(getTranslation("domain.grade.principles"), principlesLinks);
-        gradeOverview.add(getTranslation("domain.grade.practices"), practicesLinks);
-        String gradeName = getTranslation("compendium.grade", grade.getGradeColor().getNumber(), grade.getGradeColor().name());
-        tree.add(gradeName, gradeOverview);
-    }
+    private enum ViewMode {Tree, Table}
 
     public void openGradeTopic(GradeTopic topic) {
         UI.getCurrent().navigate(GradeView.class, topic.getId());
     }
-
-    enum ViewMode {Tree, Table}
 
     private RouterLink createAnchor(GradeTopic topic) {
         return new RouterLink(topic.getName(), GradeView.class, topic.getId());

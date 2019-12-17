@@ -2,12 +2,13 @@ package org.cleancode.journal.domain;
 
 import org.cleancode.journal.util.ToStringUtil;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Day implements Comparable<Day> {
+public class Day implements Comparable<Day>, Serializable {
 
     private final LocalDate date;
     private List<LogEntry> logEntries = new ArrayList<>();

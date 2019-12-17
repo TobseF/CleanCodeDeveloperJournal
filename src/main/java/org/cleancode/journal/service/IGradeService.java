@@ -5,18 +5,24 @@ import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
 @Service
-public interface IGradeService {
+public interface IGradeService extends Serializable {
 
-    GradeTopic getGradeTopic(String gradeId, Locale locale);
+    GradeTopic loadGradeTopic(String gradeId, Locale locale);
 
-    Grade getGrade(GradeColor gradeColor, Locale locale);
+    Grade loadGrade(GradeColor gradeColor, Locale locale);
 
-    List<Grade> getAllGrades(Locale locale);
+    List<Grade> loadAllGrades(Locale locale);
 
-    Collection<GradeTopic> getAllTopics(Locale locale);
+    Collection<GradeTopic> loadAllTopics(Locale locale);
+
+
+    Collection<GradeTopic> loadTopics(Locale locale, String filter);
+
+
 }

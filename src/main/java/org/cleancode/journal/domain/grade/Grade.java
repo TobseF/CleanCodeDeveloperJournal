@@ -90,6 +90,6 @@ public class Grade implements Serializable, Comparable<Grade> {
 
     @Override
     public int compareTo(Grade grade) {
-        return grade.compareTo(this);
+        return grade.getGradeColor().compareTo(this.getGradeColor());
     }
 }

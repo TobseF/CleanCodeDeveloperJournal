@@ -1,8 +1,9 @@
 package org.cleancode.journal.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class LogEntry {
+public class LogEntry implements Serializable {
     private Type type;
 
     public LogEntry(Type type) {

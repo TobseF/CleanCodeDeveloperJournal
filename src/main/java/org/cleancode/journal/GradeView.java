@@ -30,7 +30,7 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
 
     @Override
     public void setParameter(BeforeEvent event, String parameter) {
-        GradeTopic gradeTopic = gradeService.getGradeTopic(parameter, Locale.ENGLISH);
+        GradeTopic gradeTopic = gradeService.loadGradeTopic(parameter, Locale.ENGLISH);
         if (gradeTopic != null) {
             bind(gradeTopic);
         }
