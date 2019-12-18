@@ -11,6 +11,7 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.material.Material;
+import org.springframework.beans.factory.annotation.Autowired;
 
 //@PreserveOnRefresh
 @Route
@@ -19,19 +20,24 @@ import com.vaadin.flow.theme.material.Material;
 @PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal")
 public class MainView extends AppLayout {
 
+    @Autowired
     public MainView() {
-        final DrawerToggle drawerToggle = new DrawerToggle();
 
+        addToNavbar(new DrawerToggle());
+        addToNavbar(new H4(getTranslation("app.name")));
+
+        addToDrawer(createMenuBar());
+
+        addAttachListener(event -> getUI().ifPresent(ui -> ui.navigate(JournalView.class)));
+    }
+
+    private VerticalLayout createMenuBar() {
         final RouterLink journal = new RouterLink(getTranslation("app.menu.journal"), JournalView.class);
         final RouterLink profile = new RouterLink(getTranslation("app.menu.profile"), ProfileView.class);
         final RouterLink achievements = new RouterLink(getTranslation("app.menu.achievements"), AchievementsView.class);
         final RouterLink compendium = new RouterLink(getTranslation("app.menu.compendium"), CompendiumView.class);
         final RouterLink about = new RouterLink(getTranslation("app.menu.about"), AboutView.class);
-        final VerticalLayout menuLayout = new VerticalLayout(journal, profile, achievements, compendium, about);
-        addToDrawer(menuLayout);
-        addToNavbar(drawerToggle);
-        addToNavbar(new H4(getTranslation("app.name")));
-
+        return new VerticalLayout(journal, profile, achievements, compendium, about);
     }
 
 
