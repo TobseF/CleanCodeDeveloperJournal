@@ -42,13 +42,8 @@ public class CompendiumView extends VerticalLayout {
         HorizontalLayout controls = new HorizontalLayout();
         add(controls);
         controls.add(createModeSelect());
-        TextField filter = new TextField();
 
-        filter.setValueChangeMode(ValueChangeMode.EAGER);
-        filter.setLabel("Filter");
-        filter.setPlaceholder("Search...");
-        filter.addValueChangeListener(event -> filter(event.getValue(), gradeService));
-        controls.add(filter);
+        controls.add(createFilter(gradeService));
 
         Collection<GradeTopic> gradeTopics = gradeService.loadAllTopics(getLocale());
         table = creteTable(gradeTopics);
@@ -59,6 +54,15 @@ public class CompendiumView extends VerticalLayout {
         setViewMode(defaultViewMode);
 
         add(new AddSpeedDial());
+    }
+
+    private TextField createFilter(IGradeService gradeService) {
+        TextField filter = new TextField();
+        filter.setValueChangeMode(ValueChangeMode.EAGER);
+        filter.setLabel(getTranslation("compendium.filter"));
+        filter.setPlaceholder("compendium.search-placeholder");
+        filter.addValueChangeListener(event -> filter(event.getValue(), gradeService));
+        return filter;
     }
 
     public void filter(String filterText, IGradeService gradeService) {

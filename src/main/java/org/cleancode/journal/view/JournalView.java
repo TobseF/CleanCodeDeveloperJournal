@@ -8,7 +8,9 @@ import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.component.GradeProgressBar;
 import org.cleancode.journal.component.GradeProgressBar.ProgressDay;
 import org.cleancode.journal.domain.Day;
+import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.Progress;
+import org.cleancode.journal.service.GradeService;
 import org.cleancode.journal.service.IProgressService;
 
 import javax.annotation.PostConstruct;
@@ -22,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 public class JournalView extends VerticalLayout {
     private final IProgressService progressService;
 
-    public JournalView(IProgressService progressService) {
+    public JournalView(IProgressService progressService, GradeService gradeService, Profile profile) {
         this.progressService = progressService;
 
         HorizontalLayout gradeStatusBar = new HorizontalLayout();
@@ -30,7 +32,7 @@ public class JournalView extends VerticalLayout {
         gradeStatusBar.setWidthFull();
         add(gradeStatusBar);
 
-        H1 grade = new H1("black");
+        H1 grade = new H1(getTranslation(profile.getCurrentGrade().getMessageKey()));
         gradeStatusBar.add(grade);
 
         GradeProgressBar progressBar = new GradeProgressBar();
