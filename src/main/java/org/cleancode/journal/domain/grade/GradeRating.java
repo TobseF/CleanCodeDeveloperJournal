@@ -66,7 +66,37 @@ public class GradeRating implements Serializable {
 
     public enum Responsibility {Team, SingleDev}
 
-    public enum StarsOutOf2 {_0, _1, _2}
+    public enum StarsOutOf2 implements Rating {
+        _0, _1, _2;
 
-    public enum StarsOutOf3 {_0, _1, _2, _3}
+        @Override
+        public int getRating() {
+            return ordinal();
+        }
+
+        @Override
+        public int getSize() {
+            return 2;
+        }
+    }
+
+    public enum StarsOutOf3 implements Rating {
+        _0, _1, _2, _3;
+
+        @Override
+        public int getRating() {
+            return ordinal();
+        }
+
+        @Override
+        public int getSize() {
+            return 3;
+        }
+    }
+
+    public interface Rating {
+        int getRating();
+
+        int getSize();
+    }
 }
