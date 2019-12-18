@@ -4,7 +4,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
@@ -38,7 +37,6 @@ public class CompendiumView extends VerticalLayout {
 
     @Autowired
     public CompendiumView(IGradeService gradeService) {
-        add(new H2(getTranslation("app.menu.compendium")));
         setHeightFull();
 
         HorizontalLayout controls = new HorizontalLayout();

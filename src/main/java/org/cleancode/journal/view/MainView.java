@@ -11,6 +11,7 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.material.Material;
+import org.cleancode.journal.component.SingleBreadcrumb;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //@PreserveOnRefresh
@@ -25,6 +26,7 @@ public class MainView extends AppLayout {
 
         addToNavbar(new DrawerToggle());
         addToNavbar(new H4(getTranslation("app.name")));
+        addToNavbar(new SingleBreadcrumb());
 
         addToDrawer(createMenuBar());
 
