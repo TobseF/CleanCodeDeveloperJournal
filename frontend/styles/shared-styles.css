@@ -1,11 +1,11 @@
 .grade-progress {
-    height: 80px;
+    height: 45px;
 }
 
 .grade-progress-day {
     background-color: white;
     width: 10px;
-    height: 70px;
+    height: 40px;
     transition: border-top 0.8s;
     top: 0;
     bottom: 0;
@@ -50,7 +50,7 @@
     position: relative;
     z-index: 1;
 
-    top: 80px;
+    top: 50px;
     left: -100px;
 }
 

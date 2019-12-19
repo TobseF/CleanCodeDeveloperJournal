@@ -60,7 +60,7 @@ public class CompendiumView extends VerticalLayout {
         TextField filter = new TextField();
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.setLabel(getTranslation("compendium.filter"));
-        filter.setPlaceholder("compendium.search-placeholder");
+        filter.setPlaceholder(getTranslation("compendium.search-placeholder"));
         filter.addValueChangeListener(event -> filter(event.getValue(), gradeService));
         return filter;
     }
