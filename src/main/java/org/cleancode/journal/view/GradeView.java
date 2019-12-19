@@ -9,6 +9,7 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.BackNavigation;
 import org.cleancode.journal.component.StarRating;
 import org.cleancode.journal.domain.grade.GradeRating;
 import org.cleancode.journal.domain.grade.GradeRating.Rating;
@@ -18,6 +19,7 @@ import org.cleancode.journal.service.IGradeService;
 import java.util.Locale;
 
 import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode.BETWEEN;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Route(layout = MainView.class)
 public class GradeView extends VerticalLayout implements HasUrlParameter<String> {
@@ -30,8 +32,11 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
     public GradeView(IGradeService gradeService) {
         this.gradeService = gradeService;
 
-        name = new H2("");
-        add(name);
+        name = new H2(EMPTY);
+        BackNavigation backNavigation = new BackNavigation();
+        HorizontalLayout title = new HorizontalLayout(backNavigation, name);
+        title.setAlignItems(Alignment.BASELINE);
+        add(title);
 
         ratings = new VerticalLayout();
         ratings.setMaxWidth("320px");
