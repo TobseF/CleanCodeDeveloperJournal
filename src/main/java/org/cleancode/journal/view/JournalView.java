@@ -2,6 +2,7 @@ package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Label;
@@ -26,6 +27,7 @@ import org.cleancode.journal.service.IProgressService;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -33,44 +35,74 @@ import static java.util.stream.Collectors.toList;
 @Route(layout = MainView.class)
 public class JournalView extends VerticalLayout {
     private final IProgressService progressService;
+    private final GradeService gradeService;
+    private final Profile profile;
+    private VerticalLayout favorites;
 
     public JournalView(IProgressService progressService, GradeService gradeService, Profile profile) {
         this.progressService = progressService;
+        this.gradeService = gradeService;
+        this.profile = profile;
 
         GradeColor currentGrade = profile.getCurrentGrade();
 
         add(createStatusBar(currentGrade));
+
+        addFavorites();
 
         addGradeOverview(gradeService, currentGrade);
 
         add(new AddSpeedDial());
     }
 
+    private void addFavorites() {
+        if (favorites != null) {
+            favorites.removeAll();
+        } else {
+            add(new H4(getTranslation("journal.section.favorites")));
+            favorites = new VerticalLayout();
+            add(favorites);
+        }
+        Collection<String> favoriteTopicIds = profile.getFavoriteTopicIds();
+        favoriteTopicIds.stream().map(this::loadGradeTopicById).forEach(this::addFavorite);
+        favorites.setVisible(!favoriteTopicIds.isEmpty());
+    }
+
+    private void addFavorite(GradeTopic favorite) {
+        favorites.add(createGradeTopicLine(favorite));
+    }
+
+    private GradeTopic loadGradeTopicById(String id) {
+        return gradeService.loadGradeTopic(id, getLocale());
+    }
+
     private void addGradeOverview(GradeService gradeService, GradeColor currentGrade) {
         Grade grade = gradeService.loadGrade(currentGrade, getLocale());
 
-        add(new H4(getTranslation("domain.grade.principles")));
+        addGradeTopics(grade.getPrinciples(), getTranslation("domain.grade.principles"));
 
-        addGradeTopics(grade.getPrinciples());
-
-        add(new H4(getTranslation("domain.grade.practices")));
-        addGradeTopics(grade.getPractices());
+        addGradeTopics(grade.getPractices(), getTranslation("domain.grade.practices"));
     }
 
-    public void addGradeTopics(List<? extends GradeTopic> topics) {
-        topics.stream().map(this::createGradeTopicLine).forEach(this::add);
+    public void addGradeTopics(List<? extends GradeTopic> topics, String heading) {
+        Details details = new Details();
+        details.setSummaryText(heading);
+        add(details);
+        topics.stream().map(this::createGradeTopicLine).forEach(details::addContent);
     }
 
     public HorizontalLayout createGradeTopicLine(GradeTopic topic) {
         HorizontalLayout line = new HorizontalLayout();
 
         line.setSizeFull();
-        line.setMaxWidth("400px");
-        line.setMinWidth("400px");
+        line.setWidth("420px");
 
-        StarRating favorite = new StarRating(0, 1);
+        StarRating.Star favorite = new StarRating.Star();
         favorite.setSize("20px");
+        favorite.setEnabled(true);
+        favorite.setRating(profile.hasFavorite(topic));
         line.add(favorite);
+        favorite.addClickListener(event -> toggleFavorite(topic));
 
         Label name = new Label(topic.getName());
         line.add(name);
@@ -83,6 +115,15 @@ public class JournalView extends VerticalLayout {
         line.add(open);
         line.setFlexGrow(1, name);
         return line;
+    }
+
+    private void toggleFavorite(GradeTopic topic) {
+        if (profile.hasFavorite(topic)) {
+            profile.removeFavorite(topic);
+        } else {
+            profile.addFavorite(topic);
+        }
+        addFavorites();
     }
 
     private void openTopic(GradeTopic topic) {

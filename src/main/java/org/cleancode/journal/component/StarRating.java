@@ -1,8 +1,10 @@
 package org.cleancode.journal.component;
 
+import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.shared.Registration;
 import org.cleancode.journal.domain.grade.GradeRating;
 
 import java.util.LinkedList;
@@ -11,9 +13,16 @@ import java.util.List;
 /**
  * Bar of rating stars.
  */
-public class StarRating extends HorizontalLayout {
+public class StarRating extends HorizontalLayout implements HasEnabled {
 
     public final List<Star> stars = new LinkedList<>();
+
+    /**
+     * Single star rating
+     */
+    public StarRating() {
+        this(0, 1);
+    }
 
     public StarRating(GradeRating.Rating rating) {
         this(rating.getRating(), rating.getSize());
@@ -31,6 +40,17 @@ public class StarRating extends HorizontalLayout {
         }
         setSizeUndefined();
         addStars(size, rating);
+    }
+
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        getStars().forEach(star -> star.addClickListener(e -> rate(star)));
+    }
+
+    public void rate(Star star) {
+        star.toggle();
     }
 
     public List<Star> getStars() {
@@ -75,11 +95,48 @@ public class StarRating extends HorizontalLayout {
         }
     }
 
-    public static class Star extends Icon {
-        final StarColor starColor;
+    public static class Star extends Icon implements HasEnabled {
+        private StarColor starColor;
+        private Registration registration;
+
+        public Star() {
+            this(StarColor.Empty);
+        }
 
         public Star(StarColor starColor) {
             super(VaadinIcon.STAR);
+            this.starColor = starColor;
+            setColor(starColor.color);
+        }
+
+        public void setRating(boolean rated) {
+            if (rated) {
+                setStarColor(StarColor.Filled);
+            } else {
+                setStarColor(StarColor.Empty);
+            }
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return starColor == StarColor.Filled;
+        }
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            if (registration != null) {
+                registration.remove();
+            }
+            if (enabled) {
+                registration = addClickListener(event -> toggle());
+            }
+        }
+
+        public void toggle() {
+            setRating(!isEnabled());
+        }
+
+        private void setStarColor(StarColor starColor) {
             this.starColor = starColor;
             setColor(starColor.color);
         }

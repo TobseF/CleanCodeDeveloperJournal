@@ -38,6 +38,7 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
         title.setAlignItems(Alignment.BASELINE);
         add(title);
 
+
         ratings = new VerticalLayout();
         ratings.setMaxWidth("320px");
         add(ratings);
