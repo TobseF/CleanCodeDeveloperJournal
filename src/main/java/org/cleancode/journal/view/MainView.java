@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal")
 public class MainView extends AppLayout {
 
-    @Autowired
     public MainView() {
 
         addToNavbar(new DrawerToggle());

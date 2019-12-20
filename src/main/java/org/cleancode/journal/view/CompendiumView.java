@@ -12,10 +12,12 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.cleancode.journal.domain.grade.Practice;
 import org.cleancode.journal.domain.grade.Principle;
+import org.cleancode.journal.service.GradeService;
 import org.cleancode.journal.service.IGradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,8 +37,7 @@ public class CompendiumView extends VerticalLayout {
     private final Grid<GradeTopic> table;
     private Accordion tree;
 
-    @Autowired
-    public CompendiumView(IGradeService gradeService) {
+    public CompendiumView(Profile profile, IGradeService gradeService) {
         setHeightFull();
 
         HorizontalLayout controls = new HorizontalLayout();
@@ -53,7 +54,7 @@ public class CompendiumView extends VerticalLayout {
 
         setViewMode(defaultViewMode);
 
-        add(new AddSpeedDial());
+        add(new AddSpeedDial(profile, gradeService));
     }
 
     private TextField createFilter(IGradeService gradeService) {

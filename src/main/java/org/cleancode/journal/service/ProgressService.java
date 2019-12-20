@@ -33,7 +33,7 @@ public class ProgressService implements IProgressService {
 
     private void setDayPartialFulfilled(Day day) {
         day.addLogEntry(new LogEntry(LogEntry.Type.Fulfilled));
-        day.addLogEntry(new LogEntry(LogEntry.Type.Ignored));
+        day.addLogEntry(new LogEntry(LogEntry.Type.Violated));
     }
 
 }

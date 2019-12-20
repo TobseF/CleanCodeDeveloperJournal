@@ -13,6 +13,7 @@ import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.GradeColor;
+import org.cleancode.journal.service.IGradeService;
 import org.cleancode.journal.service.INameService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProfileView extends VerticalLayout {
     private final INameService nameService;
 
-    public ProfileView(@Autowired INameService nameService, @Autowired Profile profile) {
+    public ProfileView(INameService nameService, Profile profile, IGradeService gradeService) {
         this.nameService = nameService;
 
         add(createNameField(nameService));
@@ -29,7 +30,7 @@ public class ProfileView extends VerticalLayout {
 
         add(createGradeSelect(profile));
 
-        add(new AddSpeedDial());
+        add(new AddSpeedDial(profile, gradeService));
     }
 
     private HorizontalLayout createNameField(@Autowired INameService nameService) {

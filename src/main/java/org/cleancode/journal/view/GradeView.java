@@ -11,6 +11,7 @@ import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.component.BackNavigation;
 import org.cleancode.journal.component.StarRating;
+import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.GradeRating;
 import org.cleancode.journal.domain.grade.GradeRating.Rating;
 import org.cleancode.journal.domain.grade.GradeTopic;
@@ -29,7 +30,7 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
     private final IGradeService gradeService;
     private final VerticalLayout ratings;
 
-    public GradeView(IGradeService gradeService) {
+    public GradeView(Profile profile, IGradeService gradeService) {
         this.gradeService = gradeService;
 
         name = new H2(EMPTY);
@@ -46,7 +47,7 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
         description = new Label();
         add(description);
 
-        add(new AddSpeedDial());
+        add(new AddSpeedDial(profile, gradeService));
     }
 
     @Override

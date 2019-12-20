@@ -52,7 +52,7 @@ public class JournalView extends VerticalLayout {
 
         addGradeOverview(gradeService, currentGrade);
 
-        add(new AddSpeedDial());
+        add(new AddSpeedDial(profile, gradeService));
     }
 
     private void addFavorites() {

@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class LogEntry implements Serializable {
     private Type type;
+    private String comment;
 
     public LogEntry(Type type) {
         this.type = type;
@@ -27,7 +28,15 @@ public class LogEntry implements Serializable {
     }
 
     public boolean isIgnored() {
-        return type == Type.Ignored;
+        return type == Type.Violated;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override
@@ -48,5 +57,5 @@ public class LogEntry implements Serializable {
         return Objects.hash(type);
     }
 
-    public enum Type {Irrelevant, Fulfilled, Ignored}
+    public enum Type {Irrelevant, Fulfilled, Violated}
 }
