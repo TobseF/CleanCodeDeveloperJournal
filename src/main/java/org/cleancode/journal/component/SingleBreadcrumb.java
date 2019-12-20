@@ -13,7 +13,7 @@ public class SingleBreadcrumb extends H4 implements BeforeEnterObserver {
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         String location = event.getLocation().getFirstSegment();
-        if ("journal".equals(location)) {
+        if ("journal".equals(location) || location.isEmpty()) {
             setVisible(false);
         } else {
             setVisible(true);
