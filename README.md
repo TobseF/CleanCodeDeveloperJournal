@@ -1,5 +1,5 @@
 # 📓 Clean Code Developer Journal 
-[![Vaadin-14](https://img.shields.io/badge/Vaadin-14-blue.svg?style=flat&logo=Vagrant&logoColor=white)](https://vaadin.com/)
+[![Vaadin-14](https://img.shields.io/badge/Vaadin-14.1.3-blue.svg?style=flat&logo=Vagrant&logoColor=white)](https://vaadin.com/)
 [![Java-12](https://img.shields.io/badge/Java-12-red.svg?style=flat&logo=Java&logoColor=white)](https://www.oracle.com/technetwork/java/javase/12-relnote-issues-5211422.html)
 [![Spring-Boot](https://img.shields.io/badge/Spring-Boot-green.svg?style=flat&logo=Springt&logoColor=white)](https://vaadin.com/)
 
