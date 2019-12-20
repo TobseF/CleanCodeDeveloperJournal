@@ -90,8 +90,8 @@
       "sources": []
     },
     {
-      "name": "Boy Scout Rule",
-      "id": "boy-scout-rule",
+      "name": "Root Cause Analysis",
+      "id": "root-cause-analysis",
       "sectionWhy": "While eliminating symptoms brings quick relief, it costs more effort in the long run. You will be more efficient, if you have a look under the surface of problems.",
       "description": "<p>A rule from the very first day as a CCD should be to always search for the root cause of an issue. Clean code developer do not consider themselves satisfied with healing symptoms. Example:\\ Sorting data in memory is too slow. A symptom cure would strive for speed up single instructions or instruction blocks. Maybe unsafe code or parallelization becomes an option. A thorough root cause analysis would have shown that the chosen sort algorithm is the real culprit. Hard to understand low level optimizations hence can be avoided by choosing a better algorithm.<p></p>Root cause analysis serves understandability and effort reduction. This is because with knowing the root cause, clean-up tends to be less effert than curing symptoms. A CCD hitting a problem will pause to get himself a chance looking beyond the symptoms.<p></p>Root Cause Analysis is also known as “Five Why’s”. This term origins from the Toyota Production System (TPS) stating the basic idea to ask “Why?” five times.</p>",
       "gradeRating": {

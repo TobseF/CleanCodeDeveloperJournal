@@ -15,7 +15,6 @@ import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.service.IGradeService;
 import org.cleancode.journal.service.INameService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(layout = MainView.class)
 public class ProfileView extends VerticalLayout {
@@ -24,7 +23,7 @@ public class ProfileView extends VerticalLayout {
     public ProfileView(INameService nameService, Profile profile, IGradeService gradeService) {
         this.nameService = nameService;
 
-        add(createNameField(nameService));
+        add(createNameField(profile));
 
         add(createPasswordField());
 
@@ -33,13 +32,14 @@ public class ProfileView extends VerticalLayout {
         add(new AddSpeedDial(profile, gradeService));
     }
 
-    private HorizontalLayout createNameField(@Autowired INameService nameService) {
+    private HorizontalLayout createNameField(Profile profile) {
         HorizontalLayout nameSelection = new HorizontalLayout();
         nameSelection.setSpacing(false);
         nameSelection.setAlignItems(Alignment.BASELINE);
 
-        String newUserName = nameService.getRandomName();
-        TextField userName = new TextField(newUserName);
+
+        TextField userName = new TextField(profile.getName());
+        userName.addValueChangeListener(e -> profile.setName(e.getValue()));
         userName.setLabel(getTranslation("user.name"));
         nameSelection.add(userName);
 

@@ -6,16 +6,16 @@ import org.cleancode.journal.domain.grade.GradeTopic;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @VaadinSessionScope
 public class Profile implements Serializable {
     private GradeColor currentGrade = GradeColor.Red;
+    private String name = "";
 
     private Set<String> favoriteTopicIds = new HashSet<>();
+    private List<LogEntry> log = new LinkedList<>();
 
     public GradeColor getCurrentGrade() {
         return currentGrade;
@@ -37,6 +37,21 @@ public class Profile implements Serializable {
         return favoriteTopicIds;
     }
 
+    public List<LogEntry> getLog() {
+        return log;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void addLogEntry(LogEntry logEntry) {
+        log.add(logEntry);
+    }
 
     public void setCurrentGrade(GradeColor currentGrade) {
         this.currentGrade = currentGrade;

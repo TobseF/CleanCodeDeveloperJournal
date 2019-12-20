@@ -65,7 +65,6 @@ public class GradeTopic implements Serializable {
         this.sources = sources;
     }
 
-
     public Grade getGrade() {
         return grade;
     }
@@ -89,7 +88,7 @@ public class GradeTopic implements Serializable {
 
     @Override
     public String toString() {
-        return grade + " " + id;
+        return grade + " - " + name + " [" + id + "]";
     }
 
 }

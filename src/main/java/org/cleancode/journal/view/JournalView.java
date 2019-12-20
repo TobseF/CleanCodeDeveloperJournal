@@ -11,11 +11,10 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import org.cleancode.journal.component.AddSpeedDial;
-import org.cleancode.journal.component.GradeProgressBar;
+import org.cleancode.journal.component.*;
 import org.cleancode.journal.component.GradeProgressBar.ProgressDay;
-import org.cleancode.journal.component.StarRating;
 import org.cleancode.journal.domain.Day;
+import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.Progress;
 import org.cleancode.journal.domain.grade.Grade;
@@ -37,6 +36,7 @@ public class JournalView extends VerticalLayout {
     private final IProgressService progressService;
     private final GradeService gradeService;
     private final Profile profile;
+    private final VerticalLayout log;
     private VerticalLayout favorites;
 
     public JournalView(IProgressService progressService, GradeService gradeService, Profile profile) {
@@ -46,13 +46,46 @@ public class JournalView extends VerticalLayout {
 
         GradeColor currentGrade = profile.getCurrentGrade();
 
-        add(createStatusBar(currentGrade));
+        add(createStatusBar());
 
         addFavorites();
 
         addGradeOverview(gradeService, currentGrade);
 
-        add(new AddSpeedDial(profile, gradeService));
+        log = new VerticalLayout();
+        log.setPadding(false);
+        log.setSizeFull();
+        add(log);
+        bindLogEntries();
+
+
+        AddSpeedDial addSpeedDial = new AddSpeedDial(profile, gradeService);
+        //noinspection Convert2Lambda - Using a lamda would break the serialisation
+        addSpeedDial.add(new AddSpeedDial.NewLogEntryListener() {
+            @Override
+            public void newLogEntry(LogEntry newLogEntry) {
+                bindLogEntries();
+            }
+        });
+        add(addSpeedDial);
+    }
+
+    private void bindLogEntries() {
+        log.removeAll();
+        profile.getLog().forEach(this::addLogEntry);
+    }
+
+    private void addLogEntry(LogEntry logEntry) {
+        LogEntryComponent logEntryComponent = new LogEntryComponent();
+        LogEntryModel logEntryModel = logEntryComponent.getModel();
+        logEntryModel.setComment(logEntry.getComment());
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm");
+        logEntryModel.setDate(timeFormatter.withLocale(getLocale()).format(logEntry.getDateTime()));
+        logEntryModel.setUsername(profile.getName());
+        logEntryModel.setExperience("20XP");
+        logEntryModel.setGrade(getCurrentGradeName());
+        logEntryModel.setTopic(gradeService.loadGradeTopic(logEntry.getTopicId(), getLocale()).getName());
+        log.add(logEntryComponent);
     }
 
     private void addFavorites() {
@@ -95,7 +128,7 @@ public class JournalView extends VerticalLayout {
         HorizontalLayout line = new HorizontalLayout();
 
         line.setSizeFull();
-        line.setWidth("420px");
+        line.setWidth("380px");
 
         StarRating.Star favorite = new StarRating.Star();
         favorite.setSize("20px");
@@ -126,17 +159,21 @@ public class JournalView extends VerticalLayout {
         addFavorites();
     }
 
+    public String getCurrentGradeName() {
+        return getTranslation(profile.getCurrentGrade().getMessageKey());
+    }
+
     private void openTopic(GradeTopic topic) {
         UI.getCurrent().navigate(GradeView.class, topic.getId());
     }
 
 
-    private HorizontalLayout createStatusBar(GradeColor currentGrade) {
+    private HorizontalLayout createStatusBar() {
         HorizontalLayout gradeStatusBar = new HorizontalLayout();
         gradeStatusBar.setAlignItems(Alignment.CENTER);
         gradeStatusBar.setWidthFull();
 
-        H2 grade = new H2(getTranslation(currentGrade.getMessageKey()));
+        H2 grade = new H2(getCurrentGradeName());
         gradeStatusBar.add(grade);
 
         GradeProgressBar progressBar = new GradeProgressBar();

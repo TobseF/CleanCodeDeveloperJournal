@@ -1,17 +1,20 @@
 package org.cleancode.journal.component;
 
-import com.vaadin.flow.component.icon.VaadinIcon;
+import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;
-import org.cleancode.journal.service.GradeService;
 import org.cleancode.journal.service.IGradeService;
 import org.cleancode.journal.view.LogDialog;
 
-import static com.vaadin.flow.component.icon.VaadinIcon.*;
+import java.io.Serializable;
+
+import static com.vaadin.flow.component.icon.VaadinIcon.NOTEBOOK;
+import static com.vaadin.flow.component.icon.VaadinIcon.TROPHY;
 
 public class AddSpeedDial extends SpeedDial {
 
     private final Profile profile;
     private final IGradeService gradeService;
+    private NewLogEntryListener entryListener;
 
     public AddSpeedDial(Profile profile, IGradeService gradeService) {
         this.profile = profile;
@@ -22,12 +25,20 @@ public class AddSpeedDial extends SpeedDial {
     }
 
     public void createNote() {
-        LogDialog logDialog = new LogDialog(gradeService, profile);
+        LogDialog logDialog = new LogDialog(gradeService, profile, entryListener);
         logDialog.open();
     }
 
     public void activateAchievement() {
-        LogDialog logDialog = new LogDialog(gradeService, profile);
+        LogDialog logDialog = new LogDialog(gradeService, profile, entryListener);
         logDialog.open();
+    }
+
+    public void add(NewLogEntryListener entryListener) {
+        this.entryListener = entryListener;
+    }
+
+    public interface NewLogEntryListener extends Serializable {
+        void newLogEntry(LogEntry newLogEntry);
     }
 }
