@@ -1,6 +1,7 @@
 package org.cleancode.journal.service;
 
 import com.google.gson.Gson;
+import com.vaadin.flow.i18n.I18NProvider;
 import com.vaadin.flow.server.VaadinService;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeColor;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.StringUtils.defaultString;
 
 @Service
 public class GradeService implements IGradeService {
@@ -63,8 +66,15 @@ public class GradeService implements IGradeService {
     }
 
     private boolean filter(Locale locale, GradeTopic gradeTopic, String filter) {
-        String gradeColor = VaadinService.getCurrent().getInstantiator().getI18NProvider().getTranslation(gradeTopic.getGrade().getGradeColor().getMessageKey(), locale);
-        return gradeTopic.getName().toLowerCase().contains(filter) || gradeTopic.getDescription().toLowerCase().contains(filter) || gradeTopic.getSectionWhy().toLowerCase().contains(filter) || gradeColor.toLowerCase().contains(filter);
+        String search = defaultString(filter).toLowerCase();
+        I18NProvider i18NProvider = VaadinService.getCurrent().getInstantiator().getI18NProvider();
+        String gradeColor = i18NProvider.getTranslation(gradeTopic.getGrade().getGradeColor().getMessageKey(), locale);
+        return contains(gradeTopic::getName, search) || contains(gradeTopic::getDescription, search)
+                || contains(gradeTopic::getSectionWhy, search) || contains(() -> gradeColor, search);
+    }
+
+    private boolean contains(Supplier<String> getter, String search) {
+        return getter.get().toLowerCase().contains(search);
     }
 
 }
