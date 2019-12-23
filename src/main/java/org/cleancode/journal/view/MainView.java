@@ -5,17 +5,14 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.material.Material;
 import org.cleancode.journal.component.SingleBreadcrumb;
-import org.springframework.beans.factory.annotation.Autowired;
 
 //@PreserveOnRefresh
-@Route
 @CssImport("./styles/shared-styles.css")
 @Theme(value = Material.class, variant = Lumo.DARK)
 @PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal")
@@ -28,8 +25,6 @@ public class MainView extends AppLayout {
         addToNavbar(new SingleBreadcrumb());
 
         addToDrawer(createMenuBar());
-
-        addAttachListener(event -> getUI().ifPresent(ui -> ui.navigate(JournalView.class)));
     }
 
     private VerticalLayout createMenuBar() {

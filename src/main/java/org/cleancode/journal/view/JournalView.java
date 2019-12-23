@@ -11,6 +11,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import org.cleancode.journal.component.*;
 import org.cleancode.journal.component.GradeProgressBar.ProgressDay;
 import org.cleancode.journal.domain.Day;
@@ -32,6 +33,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
+@RouteAlias(value = "", layout = MainView.class)
 public class JournalView extends VerticalLayout {
     private final IProgressService progressService;
     private final GradeService gradeService;
