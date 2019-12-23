@@ -1,0 +1,20 @@
+[
+  {
+    "group": "Dev",
+    "id": "achievement.dev.write-test",
+    "experience": 43,
+    "charisma": 42,
+    "talent": 46,
+    "strength": 44,
+    "intellect": 45
+  },
+  {
+    "group": "Dev",
+    "id": "achievement.dev.write-test",
+    "experience": 43,
+    "charisma": 42,
+    "talent": 46,
+    "strength": 44,
+    "intellect": 45
+  }
+]

@@ -1,0 +1,244 @@
+[
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-0",
+    "experience": 70
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-1",
+    "experience": 250,
+    "talent": 6,
+    "intellect": 6
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-2",
+    "experience": 360,
+    "talent": 7,
+    "intellect": 7
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-3",
+    "experience": 450,
+    "talent": 8,
+    "intellect": 8
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-4",
+    "experience": 550,
+    "talent": 9,
+    "intellect": 9
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-5",
+    "experience": 620,
+    "talent": 10,
+    "intellect": 10
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.grade-6",
+    "experience": 900,
+    "talent": 10,
+    "intellect": 10
+  },
+  {
+    "group": "Grade",
+    "id": "achievement.grade.completed-run",
+    "experience": 1200,
+    "talent": 10,
+    "intellect": 10
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.days-3",
+    "experience": 85,
+    "charisma": 1,
+    "talent": 2
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.days-5",
+    "experience": 125,
+    "charisma": 2,
+    "talent": 2
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.days-10",
+    "experience": 170,
+    "charisma": 4,
+    "talent": 5
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.days-25",
+    "experience": 225,
+    "charisma": 4,
+    "talent": 8
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.days-60",
+    "experience": 360,
+    "charisma": 4,
+    "talent": 8
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.days-100",
+    "experience": 500,
+    "charisma": 4,
+    "talent": 10
+  },
+  {
+    "group": "Log",
+    "id": "achievement.log.all-topics",
+    "experience": 360,
+    "charisma": 1,
+    "talent": 5
+  },
+  {
+    "group": "CleanCode",
+    "id": "achievement.clean-code.days-3",
+    "experience": 85,
+    "talent": 2,
+    "intellect": 1
+  },
+  {
+    "group": "CleanCode",
+    "id": "achievement.clean-code.days-5",
+    "experience": 170,
+    "talent": 4,
+    "intellect": 2
+  },
+  {
+    "group": "CleanCode",
+    "id": "achievement.clean-code.days-10",
+    "experience": 250,
+    "talent": 8,
+    "intellect": 3
+  },
+  {
+    "group": "Social",
+    "id": "achievement.social.invite-friend",
+    "experience": 70,
+    "charisma": 6
+  },
+  {
+    "group": "Social",
+    "id": "achievement.social.comment-progress",
+    "experience": 85,
+    "charisma": 4
+  },
+  {
+    "group": "Social",
+    "id": "achievement.social.teach-clean-code",
+    "experience": 225,
+    "charisma": 8,
+    "intellect": 3
+  },
+  {
+    "group": "Social",
+    "id": "achievement.social.pair-programming",
+    "experience": 125,
+    "charisma": 5
+  },
+  {
+    "group": "Social",
+    "id": "achievement.social.public-github-pull",
+    "experience": 85,
+    "charisma": 6
+  },
+  {
+    "group": "Dev",
+    "id": "achievement.dev.write-test",
+    "experience": 70,
+    "talent": 3
+  },
+  {
+    "group": "Dev",
+    "id": "achievement.dev.comment-code",
+    "experience": 70,
+    "talent": 2
+  },
+  {
+    "group": "Dev",
+    "id": "achievement.dev.refacor-code",
+    "experience": 225,
+    "charisma": 2,
+    "talent": 4
+  },
+  {
+    "group": "Dev",
+    "id": "achievement.dev.automate-it",
+    "experience": 250,
+    "charisma": 2,
+    "talent": 4
+  },
+  {
+    "group": "Dev",
+    "id": "achievement.dev.codereview",
+    "experience": 125,
+    "charisma": 3
+  },
+  {
+    "group": "Health",
+    "id": "achievement.health.ergonomic-workplace",
+    "strength": 4
+  },
+  {
+    "group": "Health",
+    "id": "achievement.health.stand-1h",
+    "experience": 100,
+    "strength": 1
+  },
+  {
+    "group": "Health",
+    "id": "achievement.healthy-snack",
+    "experience": 125,
+    "strength": 2
+  },
+  {
+    "group": "Health",
+    "id": "achievement.dev.fresh-air",
+    "experience": 225,
+    "strength": 6
+  },
+  {
+    "group": "Knowledge",
+    "id": "achievement.knowledge.read-blog-entry",
+    "experience": 125,
+    "talent": 2
+  },
+  {
+    "group": "Knowledge",
+    "id": "achievement.knowledge.learn-new",
+    "experience": 225,
+    "intellect": 6
+  },
+  {
+    "group": "Knowledge",
+    "id": "achievement.knowledge.read-book",
+    "experience": 500,
+    "talent": 10
+  },
+  {
+    "group": "Knowledge",
+    "id": "achievement.knowledge.write-blog-entry",
+    "experience": 420,
+    "talent": 4,
+    "charisma": 6
+  },
+  {
+    "group": "Knowledge",
+    "id": "achievement.knowledge.hold-presentation",
+    "experience": 800,
+    "charisma": 10,
+    "talent": 6
+  }
+]

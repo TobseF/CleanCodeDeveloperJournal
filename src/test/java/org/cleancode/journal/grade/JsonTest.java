@@ -3,6 +3,7 @@ package org.cleancode.journal.grade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.approvaltests.Approvals;
+import org.cleancode.journal.domain.Achievement;
 import org.cleancode.journal.domain.grade.*;
 import org.cleancode.journal.domain.grade.GradeRating.Responsibility;
 import org.cleancode.journal.domain.grade.GradeRating.StarsOutOf3;
@@ -12,8 +13,10 @@ import java.util.Locale;
 
 public class JsonTest {
 
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
     @Test
-    public void test() throws Exception {
+    public void gradeTest() throws Exception {
 
         Grade grade = new Grade();
         grade.setLocale(Locale.ENGLISH);
@@ -48,7 +51,23 @@ public class JsonTest {
             principle.setGradeRating(rating);
         }
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         Approvals.verifyJson(gson.toJson(grade));
+    }
+
+    @Test
+    public void achievementTest() {
+        Achievement achievement = new Achievement();
+        achievement.setGroup(Achievement.Group.Dev);
+        achievement.setId("achievement.dev.write-test");
+        achievement.setCharisma(42);
+        achievement.setExperience(43);
+        achievement.setStrength(44);
+        achievement.setIntellect(45);
+        achievement.setTalent(46);
+
+        Achievement[] achievements = {achievement, achievement};
+
+        Approvals.verifyJson(gson.toJson(achievements));
     }
 }
