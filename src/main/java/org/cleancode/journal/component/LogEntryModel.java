@@ -3,7 +3,7 @@ package org.cleancode.journal.component;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.templatemodel.TemplateModel;
 
-@NpmPackage(value = "@polymer/iron-icon/iron-icon", version = "3.0.0")
+@NpmPackage(value = "@polymer/iron-icons", version = "3.0.0")
 public class LogEntryModel implements TemplateModel {
 
     public String grade;
