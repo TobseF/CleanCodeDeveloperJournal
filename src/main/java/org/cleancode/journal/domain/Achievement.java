@@ -1,8 +1,9 @@
 package org.cleancode.journal.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Achievement {
+public class Achievement implements Serializable {
 
 
     private Group group;
@@ -112,6 +113,6 @@ public class Achievement {
     }
 
     public enum Group {
-        Grade, Log, CleanCode, Social, Dev, Health, Knowledge;
+        Grade, Log, CleanCode, Social, Dev, Health, Knowledge
     }
 }

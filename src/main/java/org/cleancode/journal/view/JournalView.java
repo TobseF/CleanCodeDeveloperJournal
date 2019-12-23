@@ -22,6 +22,7 @@ import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.cleancode.journal.service.GradeService;
+import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IProgressService;
 
 import javax.annotation.PostConstruct;
@@ -41,7 +42,7 @@ public class JournalView extends VerticalLayout {
     private final VerticalLayout log;
     private VerticalLayout favorites;
 
-    public JournalView(IProgressService progressService, GradeService gradeService, Profile profile) {
+    public JournalView(IProgressService progressService, GradeService gradeService, Profile profile, IAchievementService achievementService) {
         this.progressService = progressService;
         this.gradeService = gradeService;
         this.profile = profile;
@@ -61,7 +62,7 @@ public class JournalView extends VerticalLayout {
         bindLogEntries();
 
 
-        AddSpeedDial addSpeedDial = new AddSpeedDial(profile, gradeService);
+        AddSpeedDial addSpeedDial = new AddSpeedDial(profile, gradeService, achievementService);
         //noinspection Convert2Lambda - Using a lamda would break the serialisation
         addSpeedDial.add(new AddSpeedDial.NewLogEntryListener() {
             @Override

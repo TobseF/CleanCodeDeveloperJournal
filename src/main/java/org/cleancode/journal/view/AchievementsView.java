@@ -22,7 +22,7 @@ public class AchievementsView extends VerticalLayout {
 
         achievements.keySet().stream().sorted().map(achievements::get).forEach(this::addAchievements);
 
-        add(new AddSpeedDial(profile, gradeService));
+        add(new AddSpeedDial(profile, gradeService, achievementService));
     }
 
     public void addAchievements(List<Achievement> achievements) {

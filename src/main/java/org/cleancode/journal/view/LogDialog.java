@@ -5,6 +5,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -112,7 +113,8 @@ public class LogDialog extends Dialog {
     public void submit() {
         if (!voting.isInvalid() && !topicSelect.isInvalid()) {
             LogEntry logEntry = new LogEntry(voting.getValue());
-            logEntry.setTopicId(topicSelect.getValue().getId());
+            GradeTopic gradeTopic = topicSelect.getValue();
+            logEntry.setTopicId(gradeTopic.getId());
             logEntry.setDateTime(LocalDateTime.now());
             logEntry.setComment(comment.getValue());
             profile.addLogEntry(logEntry);
@@ -120,6 +122,7 @@ public class LogDialog extends Dialog {
                 entryListener.newLogEntry(logEntry);
             }
             close();
+            Notification.show(getTranslation("dialog.log.committed", gradeTopic.getName()));
         }
     }
 }

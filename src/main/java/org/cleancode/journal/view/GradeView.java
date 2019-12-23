@@ -15,6 +15,7 @@ import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.GradeRating;
 import org.cleancode.journal.domain.grade.GradeRating.Rating;
 import org.cleancode.journal.domain.grade.GradeTopic;
+import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IGradeService;
 
 import java.util.Locale;
@@ -30,7 +31,7 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
     private final IGradeService gradeService;
     private final VerticalLayout ratings;
 
-    public GradeView(Profile profile, IGradeService gradeService) {
+    public GradeView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
         this.gradeService = gradeService;
 
         name = new H2(EMPTY);
@@ -47,7 +48,7 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
         description = new Label();
         add(description);
 
-        add(new AddSpeedDial(profile, gradeService));
+        add(new AddSpeedDial(profile, gradeService, achievementService));
     }
 
     @Override

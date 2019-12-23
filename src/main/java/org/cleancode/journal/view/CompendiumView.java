@@ -17,9 +17,8 @@ import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeTopic;
 import org.cleancode.journal.domain.grade.Practice;
 import org.cleancode.journal.domain.grade.Principle;
-import org.cleancode.journal.service.GradeService;
+import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IGradeService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +36,7 @@ public class CompendiumView extends VerticalLayout {
     private final Grid<GradeTopic> table;
     private Accordion tree;
 
-    public CompendiumView(Profile profile, IGradeService gradeService) {
+    public CompendiumView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
         setHeightFull();
 
         HorizontalLayout controls = new HorizontalLayout();
@@ -54,7 +53,7 @@ public class CompendiumView extends VerticalLayout {
 
         setViewMode(defaultViewMode);
 
-        add(new AddSpeedDial(profile, gradeService));
+        add(new AddSpeedDial(profile, gradeService, achievementService));
     }
 
     private TextField createFilter(IGradeService gradeService) {
