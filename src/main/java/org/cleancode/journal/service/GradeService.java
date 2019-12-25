@@ -21,7 +21,7 @@ public class GradeService implements IGradeService {
 
     private transient HashMap<String, GradeTopic> topics = new LinkedHashMap<>();
     private transient HashMap<GradeColor, Grade> grades = new LinkedHashMap<>();
-    private transient List<GradeColor> allGrades = List.of(GradeColor.Red, GradeColor.Orange);
+    private transient List<GradeColor> allGrades = Arrays.asList(GradeColor.Red, GradeColor.Orange);
 
     @PostConstruct
     private void loadGradesFromFile() {

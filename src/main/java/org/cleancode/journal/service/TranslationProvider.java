@@ -6,17 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Service
 public class TranslationProvider implements I18NProvider {
 
     public static final String BUNDLE_PREFIX = "translation";
     private static final Logger log = LoggerFactory.getLogger(TranslationProvider.class);
-    private List<Locale> locales = List.of(Locale.ENGLISH, Locale.GERMAN);
+    private List<Locale> locales = Arrays.asList(Locale.ENGLISH, Locale.GERMAN);
 
     @Override
     public List<Locale> getProvidedLocales() {

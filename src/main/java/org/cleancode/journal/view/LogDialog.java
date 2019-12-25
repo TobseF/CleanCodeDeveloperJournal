@@ -22,6 +22,7 @@ import org.cleancode.journal.domain.grade.GradeTopic;
 import org.cleancode.journal.service.IGradeService;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -66,7 +67,7 @@ public class LogDialog extends Dialog {
 
         voting = new RadioButtonGroup<>();
         voting.addThemeVariants(RadioGroupVariant.MATERIAL_VERTICAL);
-        voting.setItems(List.of(LogEntry.Type.Fulfilled, LogEntry.Type.Violated, LogEntry.Type.Irrelevant));
+        voting.setItems(Arrays.asList(LogEntry.Type.Fulfilled, LogEntry.Type.Violated, LogEntry.Type.Irrelevant));
         voting.setLabel(getTranslation("dialog.log.vote.question"));
         voting.setRenderer(new TextRenderer<>(this::getTranslation));
         voting.setRequired(true);

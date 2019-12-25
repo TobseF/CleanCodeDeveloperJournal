@@ -20,6 +20,7 @@ import org.cleancode.journal.domain.grade.Principle;
 import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IGradeService;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -109,7 +110,7 @@ public class CompendiumView extends VerticalLayout {
                 setHeader(getTranslation("domain.grade.rating.responsibility")).
                 setSortable(true);
 
-        table.sort(List.of(new GridSortOrder<>(columnName, ASCENDING)));
+        table.sort(Arrays.asList(new GridSortOrder<>(columnName, ASCENDING)));
 
         table.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(this::openGradeTopic));
         return table;

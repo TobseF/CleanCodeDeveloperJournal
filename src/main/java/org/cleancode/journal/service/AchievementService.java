@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +20,8 @@ public class AchievementService implements IAchievementService {
     private void loadAchievementsFromFile() {
         Gson gson = new Gson();
         String gradeFilePath = "/achievements.json";
-        achievements = List.of(gson.fromJson(new InputStreamReader(getClass().getResourceAsStream(gradeFilePath)), Achievement[].class));
+
+        achievements = Arrays.asList(gson.fromJson(new InputStreamReader(getClass().getResourceAsStream(gradeFilePath)), Achievement[].class));
     }
 
     @Override
