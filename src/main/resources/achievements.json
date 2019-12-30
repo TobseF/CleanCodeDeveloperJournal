@@ -218,7 +218,7 @@
   },
   {
     "group": "Dev",
-    "id": "achievement.dev.refacor-code",
+    "id": "achievement.dev.refactor-code",
     "score": {
       "experience": 225,
       "charisma": 2,

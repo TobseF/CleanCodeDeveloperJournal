@@ -24,6 +24,10 @@ It uses free open source Vaadin Components, so you don't need a Vaadin Pro subsc
 
 If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
 
+## 🔧 Config
+For editing I18N property files, make sure you use UTF-8 encoding. In IntelliJ:  
+_File > Settings > Editor > File Encodings > Properties Files > Default encoding: UTF-8_ 
+
 ## 📚 Documentation
 
 For documentation on using Vaadin Flow and Spring, visit [vaadin.com/docs](https://vaadin.com/docs/flow/spring/tutorial-spring-basic.html).
