@@ -33,6 +33,14 @@ public class SpeedDial extends Component implements HasEnabled {
         }
     }
 
+    public void close() {
+        getElement().executeJs("this.opened=false");
+    }
+
+    public void open() {
+        getElement().executeJs("this.opened=true");
+    }
+
     @Override
     public void setEnabled(boolean enabled) {
         if (enabled) {

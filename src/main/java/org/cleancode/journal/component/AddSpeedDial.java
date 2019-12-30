@@ -30,11 +30,13 @@ public class AddSpeedDial extends SpeedDial {
 
     public void createNote() {
         LogDialog logDialog = new LogDialog(gradeService, profile, entryListener);
+        close();
         logDialog.open();
     }
 
     public void activateAchievement() {
         AchievementDialog achievementDialog = new AchievementDialog(achievementService, profile, null);
+        close();
         achievementDialog.open();
     }
 
