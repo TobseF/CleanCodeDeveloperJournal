@@ -7,6 +7,7 @@ import org.cleancode.journal.component.AchievementComponent;
 import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.domain.Achievement;
 import org.cleancode.journal.domain.Profile;
+import org.cleancode.journal.domain.Score;
 import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IGradeService;
 
@@ -36,21 +37,9 @@ public class AchievementsView extends VerticalLayout {
 
         AchievementComponent achievementLine = new AchievementComponent();
         achievementLine.getModel().setTitle(getTranslation(achievement.getId()));
-        achievementLine.getModel().setExperience("+" + achievement.getExperience() + " XP");
-        String skills = "";
-        if (achievement.getCharisma() != 0) {
-            skills += "CHA " + achievement.getCharisma() + " ";
-        }
-        if (achievement.getIntellect() != 0) {
-            skills += "INT " + achievement.getIntellect() + " ";
-        }
-        if (achievement.getTalent() != 0) {
-            skills += "TAL " + achievement.getTalent() + " ";
-        }
-        if (achievement.getStrength() != 0) {
-            skills += "STR" + achievement.getStrength() + " ";
-        }
-        achievementLine.getModel().setSkills(skills);
+        Score score = achievement.getScore();
+        achievementLine.getModel().setExperience("+" + score.getExperience() + " XP");
+        achievementLine.getModel().setSkills(score.getSkills());
         add(achievementLine);
     }
 

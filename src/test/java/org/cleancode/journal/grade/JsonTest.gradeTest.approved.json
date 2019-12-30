@@ -1,0 +1,37 @@
+{
+  "locale": "en",
+  "gradeColor": "Red",
+  "number": 1,
+  "principles": [
+    {
+      "name": "Keep it simple, stupid (KISS)",
+      "id": "kiss",
+      "sectionWhy": "Because you can",
+      "description": "Lorem Ispum",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_2",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    }
+  ],
+  "practices": [
+    {
+      "name": "Boy Scout Rule",
+      "id": "boy-scout-rule",
+      "sectionWhy": "Because of you",
+      "description": "Lorem Ispum",
+      "gradeRating": {
+        "evolvability": "_0",
+        "correctness": "_2",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    }
+  ]
+}

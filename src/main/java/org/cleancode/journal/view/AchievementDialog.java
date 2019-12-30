@@ -12,24 +12,25 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
+import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.domain.Achievement;
+import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.service.IAchievementService;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 public class AchievementDialog extends Dialog {
 
-
     private final IAchievementService achievementService;
     private final Profile profile;
-    private final NewAchievementListener entryListener;
+    private final AddSpeedDial.NewLogEntryListener entryListener;
     private final TextArea comment;
     private final Select<Achievement.Group> groupSelect;
     private final Select<Achievement> achievementSelect;
 
-    public AchievementDialog(IAchievementService achievementService, Profile profile, NewAchievementListener entryListener) {
+    public AchievementDialog(IAchievementService achievementService, Profile profile, AddSpeedDial.NewLogEntryListener entryListener) {
         this.achievementService = achievementService;
         this.profile = profile;
         this.entryListener = entryListener;
@@ -112,14 +113,23 @@ public class AchievementDialog extends Dialog {
     }
 
     public void submit() {
-        if (!achievementSelect.isInvalid() && !groupSelect.isInvalid()) {
-            Notification.show(getTranslation("dialog.achievement.committed", getTranslation(achievementSelect.getValue())));
+        if (achievementSelect.getValue() == null || groupSelect.getValue() == null) {
+            achievementSelect.setInvalid(achievementSelect.getValue() == null);
+            groupSelect.setInvalid(groupSelect.getValue() == null);
+        } else {
+            LogEntry logEntry = new LogEntry(LogEntry.Type.Achievement);
+            Achievement achievement = achievementSelect.getValue();
+            logEntry.setTopicId(achievement.getId());
+            logEntry.setDateTime(LocalDateTime.now());
+            logEntry.setComment(comment.getValue());
+            logEntry.setAchievement(achievement);
+            profile.addLogEntry(logEntry);
+            if (entryListener != null) {
+                entryListener.newLogEntry(logEntry);
+            }
+            Notification.show(getTranslation("dialog.achievement.committed", getTranslation(achievement)));
+            close();
         }
-        close();
-    }
-
-    public interface NewAchievementListener extends Serializable {
-        void newAchievement(Achievement newLogEntry);
     }
 
 }

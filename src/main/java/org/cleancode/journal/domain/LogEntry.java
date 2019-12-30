@@ -5,10 +5,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LogEntry implements Serializable {
+
     private Type type;
     private String comment;
     private String topicId;
     private LocalDateTime dateTime;
+    private Achievement achievement;
 
     public LogEntry(Type type) {
         this.type = type;
@@ -58,6 +60,14 @@ public class LogEntry implements Serializable {
         this.dateTime = dateTime;
     }
 
+    public Achievement getAchievement() {
+        return achievement;
+    }
+
+    public void setAchievement(Achievement achievement) {
+        this.achievement = achievement;
+    }
+
     @Override
     public String toString() {
         return "LogEntry{" + "type=" + type + '}';
@@ -66,18 +76,15 @@ public class LogEntry implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof LogEntry)) return false;
         LogEntry logEntry = (LogEntry) o;
-        return type == logEntry.type &&
-                Objects.equals(comment, logEntry.comment) &&
-                Objects.equals(topicId, logEntry.topicId) &&
-                Objects.equals(dateTime, logEntry.dateTime);
+        return type == logEntry.type && Objects.equals(comment, logEntry.comment) && Objects.equals(topicId, logEntry.topicId) && Objects.equals(dateTime, logEntry.dateTime) && Objects.equals(achievement, logEntry.achievement);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, comment, topicId, dateTime);
+        return Objects.hash(type, comment, topicId, dateTime, achievement);
     }
 
-    public enum Type {Irrelevant, Fulfilled, Violated}
+    public enum Type {Irrelevant, Fulfilled, Violated, Achievement}
 }

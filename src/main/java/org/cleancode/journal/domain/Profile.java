@@ -12,7 +12,8 @@ import java.util.*;
 @VaadinSessionScope
 public class Profile implements Serializable {
     private GradeColor currentGrade = GradeColor.Red;
-    private String name = "";
+    private Score score = new Score();
+    private String name = "Alex";
 
     private Set<String> favoriteTopicIds = new HashSet<>();
     private List<LogEntry> log = new LinkedList<>();

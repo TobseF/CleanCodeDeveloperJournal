@@ -62,6 +62,7 @@ public class LogDialog extends Dialog {
         topicSelect.setItems(topics);
         topicSelect.setItemLabelGenerator(GradeTopic::getName);
         topicSelect.setWidthFull();
+        topicSelect.setRequiredIndicatorVisible(true);
         content.add(topicSelect);
 
         voting = new RadioButtonGroup<>();
@@ -88,15 +89,15 @@ public class LogDialog extends Dialog {
         Button cancel = new Button(getTranslation("dialog.log.cancel"));
         cancel.addClickListener(e -> cancel());
 
-        HorizontalLayout actions = new HorizontalLayout(cancel,ok);
+        HorizontalLayout actions = new HorizontalLayout(cancel, ok);
         actions.setWidthFull();
         actions.setJustifyContentMode(JustifyContentMode.END);
 
         content.add(actions);
     }
 
-    public String getTranslation(LogEntry.Type type){
-        switch (type){
+    public String getTranslation(LogEntry.Type type) {
+        switch (type) {
             case Fulfilled:
                 return getTranslation("dialog.log.vote.question.yes");
             case Violated:
@@ -111,7 +112,10 @@ public class LogDialog extends Dialog {
     }
 
     public void submit() {
-        if (!voting.isInvalid() && !topicSelect.isInvalid()) {
+        if (voting.getValue() == null || topicSelect.getValue() == null) {
+            voting.setInvalid(voting.getValue() == null);
+            topicSelect.setInvalid(topicSelect.getValue() == null);
+        } else {
             LogEntry logEntry = new LogEntry(voting.getValue());
             GradeTopic gradeTopic = topicSelect.getValue();
             logEntry.setTopicId(gradeTopic.getId());

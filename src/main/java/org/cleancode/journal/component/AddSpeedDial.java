@@ -35,7 +35,7 @@ public class AddSpeedDial extends SpeedDial {
     }
 
     public void activateAchievement() {
-        AchievementDialog achievementDialog = new AchievementDialog(achievementService, profile, null);
+        AchievementDialog achievementDialog = new AchievementDialog(achievementService, profile, entryListener);
         close();
         achievementDialog.open();
     }

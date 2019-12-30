@@ -36,18 +36,29 @@ class LogEntry extends PolymerElement {
         justify-content: space-between;
     }
 
-    #topic {
+    #experience {
+        display: flex;
+        align-self: flex-end;
+    }
+
+    #xp {
+        color: #22C4FA;
+        margin-left: 8px;
         font-size: 18px;
     }
 
-    #experience {
-        align-self: flex-end;
+    #skill-points {
+        color: #20E87B;
+    }
+
+    #topic {
+        font-size: 18px;
     }
 
     #content {
         display: flex;
         flex-direction: column;
-        background-color: var(--material-secondary-background-color);
+        background-color: #101217;
         border-radius: 5px;
         padding: 5px;
     }
@@ -90,11 +101,14 @@ class LogEntry extends PolymerElement {
         <div id="content-head">
             <div id="topic">[[topic]]</div>
             <div id="type">
-                <iron-icon class="type" icon="vaadin:check-circle-o"></iron-icon>
+                <iron-icon class="type" icon="[[typeicon]]"></iron-icon>
             </div>
         </div>
         <div id="comment">[[comment]]</div>
-        <div id="experience">[[experience]]</div>
+           <div id="experience">
+            <div id="skill-points">[[skills]]</div>
+            <div id="xp">[[experience]]</div>
+        </div>
         <div id="actions">
         <iron-icon class="action" icon="vaadin:close-small"></iron-icon>
         <iron-icon class="action" icon="vaadin:comment"></iron-icon>

@@ -40,6 +40,7 @@ public class ProfileView extends VerticalLayout {
 
 
         TextField userName = new TextField(profile.getName());
+        userName.setValue(profile.getName());
         userName.addValueChangeListener(e -> profile.setName(e.getValue()));
         userName.setLabel(getTranslation("user.name"));
         nameSelection.add(userName);

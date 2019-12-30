@@ -14,10 +14,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import org.cleancode.journal.component.*;
 import org.cleancode.journal.component.GradeProgressBar.ProgressDay;
-import org.cleancode.journal.domain.Day;
-import org.cleancode.journal.domain.LogEntry;
-import org.cleancode.journal.domain.Profile;
-import org.cleancode.journal.domain.Progress;
+import org.cleancode.journal.domain.*;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.domain.grade.GradeTopic;
@@ -85,9 +82,17 @@ public class JournalView extends VerticalLayout {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm");
         logEntryModel.setDate(timeFormatter.withLocale(getLocale()).format(logEntry.getDateTime()));
         logEntryModel.setUsername(profile.getName());
-        logEntryModel.setExperience("20XP");
         logEntryModel.setGrade(getCurrentGradeName());
-        logEntryModel.setTopic(gradeService.loadGradeTopic(logEntry.getTopicId(), getLocale()).getName());
+        if (logEntry.getType() == LogEntry.Type.Achievement) {
+            logEntryModel.setTopic(getTranslation(logEntry.getTopicId()));
+            Score score = logEntry.getAchievement().getScore();
+            logEntryModel.setExperience("+" + score.getExperience() + " XP");
+            logEntryModel.setSkills(score.getSkills());
+            logEntryModel.setTypeicon(LogEntryModel.Icon.Achievement.getIconPath());
+        } else {
+            logEntryModel.setTopic(gradeService.loadGradeTopic(logEntry.getTopicId(), getLocale()).getName());
+            logEntryModel.setTypeicon(LogEntryModel.Icon.Check.getIconPath());
+        }
         log.add(logEntryComponent);
     }
 
