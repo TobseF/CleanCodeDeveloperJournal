@@ -6,6 +6,8 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.BrowserWindowResizeEvent;
+import com.vaadin.flow.component.page.BrowserWindowResizeListener;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -30,11 +32,13 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
-public class CompendiumView extends VerticalLayout {
+public class CompendiumView extends VerticalLayout implements BrowserWindowResizeListener {
 
     private final ViewMode defaultViewMode = ViewMode.Table;
     private final Grid<GradeTopic> table;
     private Accordion tree;
+    private Grid.Column<GradeTopic> columnGrade;
+    private Grid.Column<GradeTopic> columnResponsibility;
 
     public CompendiumView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
         setHeightFull();
@@ -54,6 +58,9 @@ public class CompendiumView extends VerticalLayout {
         setViewMode(defaultViewMode);
 
         add(new AddSpeedDial(profile, gradeService, achievementService));
+
+        UI.getCurrent().getPage().addBrowserWindowResizeListener(this);
+        UI.getCurrent().getPage().retrieveExtendedClientDetails(details -> resizeTable(details.getWindowInnerWidth()));
     }
 
     private TextField createFilter(IGradeService gradeService) {
@@ -88,7 +95,6 @@ public class CompendiumView extends VerticalLayout {
         Accordion tree = new Accordion();
         Map<Grade, List<GradeTopic>> groupedTopics = gradeTopics.stream().collect(groupingBy(GradeTopic::getGrade));
         groupedTopics.keySet().stream().sorted(reverseOrder()).forEach(grade -> addGrade(tree, grade, groupedTopics.get(grade)));
-
         tree.close();
         return tree;
     }
@@ -99,19 +105,20 @@ public class CompendiumView extends VerticalLayout {
 
         Grid.Column<GradeTopic> columnName = table.addColumn(GradeTopic::getName).
                 setHeader(getTranslation("domain.grade.name")).
-                setSortable(true);
+                setSortable(true).setAutoWidth(true);
 
-        table.addColumn(this::formatTopic).
+        columnGrade = table.addColumn(this::formatTopic).
                 setHeader(getTranslation("domain.grade.grade")).
-                setSortable(true);
+                setSortable(true).setAutoWidth(true);
 
-        table.addColumn(topic -> topic.getGradeRating().getResponsibility()).
+        columnResponsibility = table.addColumn(topic -> topic.getGradeRating().getResponsibility()).
                 setHeader(getTranslation("domain.grade.rating.responsibility")).
-                setSortable(true);
+                setSortable(true).setAutoWidth(true);
 
         table.sort(List.of(new GridSortOrder<>(columnName, ASCENDING)));
 
         table.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(this::openGradeTopic));
+        table.recalculateColumnWidths();
         return table;
     }
 
@@ -155,6 +162,21 @@ public class CompendiumView extends VerticalLayout {
                 tree.setVisible(true);
                 break;
         }
+    }
+
+    @Override
+    public void browserWindowResized(BrowserWindowResizeEvent browserWindowResizeEvent) {
+        resizeTable(browserWindowResizeEvent.getWidth());
+    }
+
+    /**
+     * Hide column grade and responsibility if there is not enough space to display them.
+     *
+     * @param windowWidth in pixels
+     */
+    private void resizeTable(int windowWidth) {
+        columnGrade.setVisible(windowWidth > 500);
+        columnResponsibility.setVisible(windowWidth > 580);
     }
 
     private enum ViewMode {Tree, Table}
