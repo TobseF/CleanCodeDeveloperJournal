@@ -1,11 +1,9 @@
 package org.cleancode.journal.component;
 
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.templatemodel.TemplateModel;
 
 import java.util.Objects;
 
-@NpmPackage(value = "@polymer/iron-icons", version = "3.0.0")
 public class AchievementModel implements TemplateModel {
 
     private String experience;

@@ -10,7 +10,7 @@ public class LogEntry implements Serializable {
     private String comment;
     private String topicId;
     private LocalDateTime dateTime;
-    private Achievement achievement;
+    private Score score = new Score();
 
     public LogEntry(Type type) {
         this.type = type;
@@ -60,12 +60,12 @@ public class LogEntry implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public Achievement getAchievement() {
-        return achievement;
+    public Score getScore() {
+        return score;
     }
 
-    public void setAchievement(Achievement achievement) {
-        this.achievement = achievement;
+    public void setScore(Score score) {
+        this.score = score;
     }
 
     @Override
@@ -78,12 +78,12 @@ public class LogEntry implements Serializable {
         if (this == o) return true;
         if (!(o instanceof LogEntry)) return false;
         LogEntry logEntry = (LogEntry) o;
-        return type == logEntry.type && Objects.equals(comment, logEntry.comment) && Objects.equals(topicId, logEntry.topicId) && Objects.equals(dateTime, logEntry.dateTime) && Objects.equals(achievement, logEntry.achievement);
+        return type == logEntry.type && Objects.equals(comment, logEntry.comment) && topicId.equals(logEntry.topicId) && dateTime.equals(logEntry.dateTime) && score.equals(logEntry.score);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, comment, topicId, dateTime, achievement);
+        return Objects.hash(type, comment, topicId, dateTime, score);
     }
 
     public enum Type {Irrelevant, Fulfilled, Violated, Achievement}

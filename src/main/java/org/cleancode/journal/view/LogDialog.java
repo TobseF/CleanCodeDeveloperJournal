@@ -125,6 +125,7 @@ public class LogDialog extends Dialog {
             if (entryListener != null) {
                 entryListener.newLogEntry(logEntry);
             }
+            profile.addExperience(10);
             close();
             Notification.show(getTranslation("dialog.log.committed", gradeTopic.getName()));
         }

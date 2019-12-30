@@ -85,7 +85,7 @@ public class JournalView extends VerticalLayout {
         logEntryModel.setGrade(getCurrentGradeName());
         if (logEntry.getType() == LogEntry.Type.Achievement) {
             logEntryModel.setTopic(getTranslation(logEntry.getTopicId()));
-            Score score = logEntry.getAchievement().getScore();
+            Score score = logEntry.getScore();
             logEntryModel.setExperience("+" + score.getExperience() + " XP");
             logEntryModel.setSkills(score.getSkills());
             logEntryModel.setTypeicon(LogEntryModel.Icon.Achievement.getIconPath());

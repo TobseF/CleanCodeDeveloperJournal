@@ -11,7 +11,9 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.PercentProgressBarComponent;
 import org.cleancode.journal.domain.Profile;
+import org.cleancode.journal.domain.Score;
 import org.cleancode.journal.domain.grade.GradeColor;
 import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IGradeService;
@@ -24,6 +26,10 @@ public class ProfileView extends VerticalLayout {
     public ProfileView(INameService nameService, Profile profile, IGradeService gradeService, IAchievementService achievementService) {
         this.nameService = nameService;
 
+        add(createExperienceBar(profile));
+
+        add(createScoreBars(profile));
+
         add(createNameField(profile));
 
         add(createPasswordField());
@@ -31,6 +37,41 @@ public class ProfileView extends VerticalLayout {
         add(createGradeSelect(profile));
 
         add(new AddSpeedDial(profile, gradeService, achievementService));
+    }
+
+    private HorizontalLayout createScoreBars(Profile profile) {
+        Score score = profile.getScore();
+        int max = score.getMax();
+
+        PercentProgressBarComponent talent = createScoreBar("TAL", max, score.getTalent());
+        PercentProgressBarComponent strength = createScoreBar("STR", max, score.getStrength());
+        PercentProgressBarComponent intellect = createScoreBar("INT", max, score.getIntellect());
+        PercentProgressBarComponent charisma = createScoreBar("CHA", max, score.getCharisma());
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout(talent, strength, intellect, charisma);
+        horizontalLayout.setWidthFull();
+        return horizontalLayout;
+    }
+
+    private PercentProgressBarComponent createScoreBar(String label, int value, int max) {
+        PercentProgressBarComponent scoreBar = new PercentProgressBarComponent();
+        scoreBar.setLabel(label);
+        scoreBar.setMaxValue(max);
+        scoreBar.setValue(value);
+        return scoreBar;
+    }
+
+    private PercentProgressBarComponent createExperienceBar(Profile profile) {
+        PercentProgressBarComponent experience = new PercentProgressBarComponent();
+        experience.setLabel("XP");
+        experience.setShowDescription(true);
+        experience.setMaxValue(getNextLevelExperience(profile.getLevel()));
+        experience.setValue(profile.getScore().getExperience());
+        return experience;
+    }
+
+    private int getNextLevelExperience(int level) {
+        return (int) ((level * 200) * 1.2);
     }
 
     private HorizontalLayout createNameField(Profile profile) {

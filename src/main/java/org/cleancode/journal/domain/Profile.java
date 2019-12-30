@@ -6,6 +6,7 @@ import org.cleancode.journal.domain.grade.GradeTopic;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 @Component
@@ -13,10 +14,44 @@ import java.util.*;
 public class Profile implements Serializable {
     private GradeColor currentGrade = GradeColor.Red;
     private Score score = new Score();
-    private String name = "Alex";
+    private String name = "Alex"; //start with sample data
+    private LocalDate stared = LocalDate.now();
+    private int level = 1;
 
     private Set<String> favoriteTopicIds = new HashSet<>();
     private List<LogEntry> log = new LinkedList<>();
+
+    public Profile() {
+        score.setExperience(42); //start with sample data
+    }
+
+    public LocalDate getStared() {
+        return stared;
+    }
+
+    public void setStared(LocalDate stared) {
+        this.stared = stared;
+    }
+
+    public void addScore(Score score) {
+        this.score.add(score);
+    }
+
+    public void addExperience(int experience) {
+        getScore().setExperience(getScore().getExperience() + experience);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public Score getScore() {
+        return score;
+    }
 
     public GradeColor getCurrentGrade() {
         return currentGrade;
@@ -38,6 +73,7 @@ public class Profile implements Serializable {
         return favoriteTopicIds;
     }
 
+
     public List<LogEntry> getLog() {
         return log;
     }
@@ -52,6 +88,7 @@ public class Profile implements Serializable {
 
     public void addLogEntry(LogEntry logEntry) {
         log.add(logEntry);
+        addScore(logEntry.getScore());
     }
 
     public void setCurrentGrade(GradeColor currentGrade) {

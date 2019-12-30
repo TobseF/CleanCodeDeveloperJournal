@@ -122,11 +122,12 @@ public class AchievementDialog extends Dialog {
             logEntry.setTopicId(achievement.getId());
             logEntry.setDateTime(LocalDateTime.now());
             logEntry.setComment(comment.getValue());
-            logEntry.setAchievement(achievement);
+            logEntry.setScore(achievement.getScore().clone());
             profile.addLogEntry(logEntry);
             if (entryListener != null) {
                 entryListener.newLogEntry(logEntry);
             }
+
             Notification.show(getTranslation("dialog.achievement.committed", getTranslation(achievement)));
             close();
         }

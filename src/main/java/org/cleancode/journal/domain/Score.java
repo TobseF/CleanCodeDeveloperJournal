@@ -1,6 +1,7 @@
 package org.cleancode.journal.domain;
 
 import java.io.Serializable;
+import java.util.stream.IntStream;
 
 public class Score implements Serializable {
 
@@ -27,6 +28,10 @@ public class Score implements Serializable {
 
     public int getExperience() {
         return experience;
+    }
+
+    public int getMax() {
+        return IntStream.of(charisma, talent, strength, intellect).max().orElse(0);
     }
 
     public void setExperience(int experience) {
@@ -65,6 +70,15 @@ public class Score implements Serializable {
         this.intellect = intellect;
     }
 
+
+    public void add(Score score) {
+        charisma += score.charisma;
+        intellect += score.intellect;
+        talent += score.talent;
+        strength += score.strength;
+        experience += score.experience;
+    }
+
     public String getSkills() {
         String skills = "";
         if (charisma != 0) {
@@ -80,5 +94,15 @@ public class Score implements Serializable {
             skills += "STR" + strength + " ";
         }
         return skills;
+    }
+
+    public Score clone() {
+        Score score = new Score();
+        score.charisma = charisma;
+        score.experience = experience;
+        score.intellect = intellect;
+        score.talent = talent;
+        score.strength = strength;
+        return score;
     }
 }
