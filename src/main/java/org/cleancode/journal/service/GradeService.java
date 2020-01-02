@@ -21,7 +21,7 @@ public class GradeService implements IGradeService {
 
     private transient HashMap<String, GradeTopic> topics = new LinkedHashMap<>();
     private transient HashMap<GradeColor, Grade> grades = new LinkedHashMap<>();
-    private transient List<GradeColor> allGrades = List.of(GradeColor.Red, GradeColor.Orange);
+    private transient List<GradeColor> allGrades = List.of(GradeColor.values());
 
     @PostConstruct
     private void loadGradesFromFile() {
@@ -30,10 +30,11 @@ public class GradeService implements IGradeService {
 
     private void loadGrade(GradeColor gradeColor) {
         Gson gson = new Gson();
-        String gradeFilePath = "/grades/de/grade_" + gradeColor.getNumber() + ".json";
+        String gradeFilePath = "/grades/en/grade_" + gradeColor.getNumber() + ".json";
         Grade grade = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream(gradeFilePath)), Grade.class);
         grade.listAllGradeTopics().forEach(gradeTopic -> {
             gradeTopic.setGrade(grade);
+            gradeTopic.setDescription(addLineBreaks(gradeTopic.getDescription()));
             topics.put(gradeTopic.getId(), gradeTopic);
         });
         grades.put(grade.getGradeColor(), grade);
@@ -71,6 +72,10 @@ public class GradeService implements IGradeService {
         String gradeColor = i18NProvider.getTranslation(gradeTopic.getGrade().getGradeColor().getMessageKey(), locale);
         return contains(gradeTopic::getName, search) || contains(gradeTopic::getDescription, search)
                 || contains(gradeTopic::getSectionWhy, search) || contains(() -> gradeColor, search);
+    }
+
+    private String addLineBreaks(String html) {
+        return html.replace("\\n", System.lineSeparator());
     }
 
     private boolean contains(Supplier<String> getter, String search) {

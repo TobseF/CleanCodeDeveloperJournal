@@ -141,7 +141,8 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
         if (!practices.isEmpty()) {
             gradeOverview.add(getTranslation("domain.grade.practices"), practicesGroup);
         }
-        String gradeName = getTranslation("compendium.grade", grade.getGradeColor().getNumber(), grade.getGradeColor().name());
+        String color = getTranslation(grade.getGradeColor().getMessageKey());
+        String gradeName = getTranslation("compendium.grade", grade.getGradeColor().getNumber(), color);
         tree.add(gradeName, gradeOverview);
     }
 

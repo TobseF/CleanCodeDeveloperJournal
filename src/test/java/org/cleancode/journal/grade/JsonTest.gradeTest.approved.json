@@ -15,7 +15,14 @@
         "continuousImprovement": "_0",
         "responsibility": "SingleDev"
       },
-      "sources": []
+      "sources": [
+        {
+          "name": "Stupidedia",
+          "link": "https://www.stupidedia.org/stupi/Blue_Screen",
+          "author": "Robert",
+          "description": "A important article"
+        }
+      ]
     }
   ],
   "practices": [

@@ -1,0 +1,170 @@
+{
+  "locale": "en",
+  "gradeColor": "Yellow",
+  "number": 3,
+  "principles": [
+    {
+      "name": "Interface Segregation Principle (ISP)",
+      "id": "isp",
+      "sectionWhy": "A service description that is independent from concrete implementation generates liberties.",
+      "description": "<p>Interface Segregation Principle (ISP) is another of the SOLID principles. It states that a client shall not depend on service details which the client does not use. The leaner the service interface is the smaller is the coupling of both components.</p><p>Imagine to design a plug that connects a monitor to a computer. You decide to provide simply each and every signal available on a computer via that plug. That plug will then have some hundred pins but be maximal flexible. Unfortunately coupling will also be maximal.</p><p>With the plug sample it is obvious that a monitor connection needs to receive only signals required for displaying an image on the monitor. Same so with software interfaces. Similarly they shall be as lean as possible to avoid unnecessary coupling. Exactly as a monitor plug an interface should have high cohesion: It shall only things that belong closely together.</p><p>You may use Extract Interface and Extract Superclass refactoring to apply the Interface Segregation Principle.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_1",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": [
+        {
+          "name": "ObjectMentor",
+          "link": "http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod",
+          "author": "Robert C. Martin",
+          "description": "Article regarding Interface Segregation Principle; published 1996 in The C++ Report, Engineering Notebook"
+        }
+      ]
+    },
+    {
+      "name": "Dependency Inversion Principle (DIP)",
+      "id": "dip",
+      "sectionWhy": "Class isolation is a prerequisite for testing to the point. Isolation is when classes receive no more implementation dependencies – neither at compile time nor at runtime. Concrete dependencies shall be decided on as late as possible. Ideally at runtime.",
+      "description": "<p>Also Dependency Inversion Principle is a SOLID principle. It says:</p><ul><li>High-level classes must not depend on low-level classes but both from interfaces.</li><li>Interfaces must not depend on details but details on interfaces</li></ul><p>If a high-level class uses a low-level class directly, there will be a strong coupling between both of them. You will hit problems latest when trying to do an isolated test of the high-level class. Therefore the high-level class shall depend on an interface which again is implemented by the low-level class. That way the low-level class can be mocked in a unit test.</p><p>Basically there are three options to resolve an inverted, abstract dependency at runtime:</p><ul><li>Constructor parameter</li><li>Inversion of Control Container (IoC Container), e. g. Castle Windsor</li><li>Dependency Lookup</li></ul>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_2",
+        "productionEfficiency": "_1",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": [
+        {
+          "name": "ObjectMentor",
+          "link": "http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod",
+          "author": "Robert C. Martin",
+          "description": "Article regarding Dependency Inversion Principle; published 1996 in The C++ Report, Engineering Notebook"
+        }
+      ]
+    },
+    {
+      "name": "Liskov Substitution Principle",
+      "id": "liskov-substitution-principle",
+      "sectionWhy": "Avoid surprises with the heirs if you are familiar with the testator.",
+      "description": "<p>Also the Liskov Substitution Principle (LSP) is a SOLID principle. It claims that subtypes have to behave like their base type. Sounds trivial. Looking at exceptions highlights the problems occurring when violating LSP: If a base type method doesn’t throw an exception the subtypes have to stick to that rule. If a subtype method raises an exception nonetheless, clients using the base type will get into trouble because they won’t be prepared for it. If the base type doesn’t raise an exception clients will not expect they have to handle one.</p><p>Generally speaking the principle states that a subtype may only extend base type functionality but must not reduce it. A subtype can keep or extend a value range defined in a base type but never limit it.</p><p>The Liskov Substitution Principle implies the recommendation to think thoroughly about inheritance. In most cases composition is to be preferred over inheritance (Favor Composition over Inheritance). Do consider behavior with inheritance, not only structure. Accept inheritance as a behaves-as relation that considers behavior rather than a is-a relation that reflects only the (data-)structure.</p>",
+      "gradeRating": {
+        "evolvability": "_1",
+        "correctness": "_1",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": [
+        {
+          "name": "ObjectMentor",
+          "link": "http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod",
+          "author": "Robert C. Martin",
+          "description": "Article regarding Dependency Inversion Principle; published 1996 in The C++ Report, Engineering Notebook"
+        }
+      ]
+    },
+    {
+      "name": "Principle of Least Astonishment",
+      "id": "principle-of-least-astonishment",
+      "sectionWhy": "If a component behaves surprisingly different than expected, your application will become unnecessarily complex and error prone.",
+      "description": "<p>To a high degree software development is a creative process. In that process it is important to be in the flow. In that state code easily splutters. Any flow disturbance is an interruption that results in less code being produced in the available time and code quality dropping. After each interruption the developer needs gathering speed to get into the flow again. Surprises are disturbances. They result in interruptions and mistakes. Sample: If keyboard shortcuts in the development environment the common short Ctrl-C has completely different meaning, this will disturb the developer. Using the “wrong” shortcut will annoy him or her again and again. This prevents creative work.</p><p>Software implementation should avoid surprises. If a method named <code>GetValue()</code> does not only return a value but also changes the systems state, a developer ideally would disregard that method to avoid naughty surprises. In worst case he won’t be aware of that suspicious behavior. (Query methods which change the state defy the <em>Command Query Separation</em> principle). Test-driven development fosters least astonishing interfaces as interfaces are designed and implemented from the clients view.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_1",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Information Hiding Principle",
+      "id": "information-hiding-principle",
+      "sectionWhy": "Hiding details in an interface reduces dependencies.",
+      "description": "<p>Interface design should consider which details need to be visible to the outside world. “Interface” not only in its object oriented meaning but also implicit interfaces. Every class necessarily has an implicit interface – it contains all externally visible details. The more details are visible externally the higher is the coupling between class and its clients. Once used by a client it will be harder to adopt that detail of a class. This obstructs evolvability of software.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_1",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    }
+  ],
+  "practices": [
+    {
+      "name": "Automatized Unit Tests",
+      "id": "automatized-unit-tests",
+      "sectionWhy": "Only automatized tests are really executed in a consequent manner. The more accurate unit test verify code the better.",
+      "description": "<p>Orange grade introduced integration tests. Now it is about unit tests. Other than an integration test a unit test verifies an isolated functional unit (particularly classes but also methods or components). This requires to unchain the function unit from its dependencies. If unit tests are written for existing code in the aftermath, refactorings will be necessary pretty often. Integration tests ensure that no errors are introduced with that.</p><p>Automatized tests generate two benefits:</p><ul><li>They save time.</li><li>They take fear.</li></ul><p>The more a code is under change the larger is the time saving benefit. When code is changed you will need to test new and old functionality (regression tests) again and again. Automatization simply saves time with that. And the more complex code is the larger is the benefit of taking fear. If complex code is enhanced, optimized or plainly fixed, there will be a high risk to introduce mistakes unnoticed. Automatized tests in small steps will reveal that, so that fear of disimprovement gets superfluous.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_2",
+        "productionEfficiency": "_2",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Mockups (Testdummies)",
+      "id": "mockups",
+      "sectionWhy": "Mockups make controllable tests possible.",
+      "description": "<p>Normally components use other components. If you want an isolated component test, these dependencies have to be removed as you are only interested in that one component (System Under Test or SUT) and how the component interacts with others.</p><p>To isolate we use mockups. These are used in place of real components. So the System Under Test interacts with well controlled mockups instead of real components.</p><p>Literature mentions further terms like <em>Stub</em>, <em>Dummy</em> or <em>Fake</em> which sometimes used as a synonym but actually stand for <a href=\"http://martinfowler.com/articles/mocksArentStubs.html\" target=\"_blank\">different functionalities</a>. Implement a mockup manually before you use a mock framework like <a href=\"https://hibernatingrhinos.com/oss/rhino-mocks\" target=\"_blank\">Rhino Mocks</a>. This helps to understand the mechanics.</p>",
+      "gradeRating": {
+        "evolvability": "_1",
+        "correctness": "_0",
+        "productionEfficiency": "_2",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Code Coverage Analyse",
+      "id": "code-coverage-analyse",
+      "sectionWhy": "Only believe in tests you know they really cover the test area.",
+      "description": "<p>Unit tests ideally cover all paths through our code. Only then we gain confidence that the code works correct. <em>Code Coverage Analysis</em> is used to learn which code areas are not yet covered by tests. It reveals code that is not yet executed by automatized tests.</p><p>Having 100% code coverage does not mean by default that enough tests exist. But less than 100% indicate that there a niches you cannot say anything about correctness. 100% code coverage should always be aimed for.</p><p>In real live 100% code coverage not always can be achieved with reasonable effort. As in other parts of life the final 2, 3 or 4 percent cause disproportional trouble. Hence also less than 100% can be acceptable after a thorough analysis of the coverage situation.</p><p>Coverage below 90% though is too full of holes to be considered professional. Thus starting with automatized tests shall be accompanied by Code Coverage Analysis. Otherwise you cannot rate test quality.</p><p>For measuring code coverage there are two simple metrics called C0 and C:</p><pre>C0 = (Number of tested methods / Number of methods) * 100%</pre><pre>C1 = (Number of tested decisions or branches / Number of decisions or branches) * 100%</pre><p>C1 is the stronger metric because 100% branch coverage implies 100% method coverage. That does not hold true the other way round.</p>",
+      "gradeRating": {
+        "evolvability": "_0",
+        "correctness": "_1",
+        "productionEfficiency": "_1",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Participation in Professional Events",
+      "id": "participation-in-professional-events",
+      "sectionWhy": "Best way to learn is from others and in company.",
+      "description": "<p>Discussing regularly to other software developers and exchanging experiences prevents stewing in one’s own juice. To get new views that exchange should happen with developers outside of the team, apart from daily routine, e. g. in user groups.</p><p>In regional user groups exchange or experiences is in the fore. That is important. The longer you are in a group the better you get to know your discussion partners and the more opinions equalize also in a user group. Hence it is important to think out of the box every now and then. National developer conferences provide new brain feed and allow discussions with completely different developers.</p><p>A CCD should keep an eye on three levels for exchange and inspiration: The own developer team, a regional user group and national or international conferences. Every level has its own rhythm: daily, monthly, yearly.</p>",
+      "gradeRating": {
+        "evolvability": "_0",
+        "correctness": "_0",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Complex Refactorings",
+      "id": "complexr-efactorings",
+      "sectionWhy": "It is not possible to write code in an ultimate form.",
+      "description": "<p>Simple refactorings were introduced in <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/08_Yellow_Grade.html#grade-1-red\">red grade</a>. However <em>Rename</em> and <em>Extract Method</em> may not be enough to improve code - many times bigger interventions are necessary. Dividing simple from complex refactorings make sense because complex refactorings will only be efficient and riskless with automatized tests at hand. Without tests you wouldn’t know if the code is still correct.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_0",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    }
+  ]
+}

@@ -15,12 +15,12 @@ public class Grade implements Serializable, Comparable<Grade> {
     private GradeColor gradeColor;
     private int number;
 
+    private List<Principle> principles = new ArrayList<>();
+    private List<Practice> practices = new ArrayList<>();
+
     public List<GradeTopic> listAllGradeTopics() {
         return Stream.concat(principles.stream(), practices.stream()).collect(toList());
     }
-
-    private List<Principle> principles = new ArrayList<>();
-    private List<Practice> practices = new ArrayList<>();
 
     public Locale getLocale() {
         return locale;

@@ -17,7 +17,7 @@ public class JsonTest {
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Test
-    public void gradeTest() throws Exception {
+    public void gradeTest() {
 
         Grade grade = new Grade();
         grade.setLocale(Locale.ENGLISH);
@@ -44,6 +44,13 @@ public class JsonTest {
         principle.setDescription("Lorem Ispum");
         principle.setSectionWhy("Because you can");
 
+        GradeSource source = new GradeSource();
+        source.setName("Stupidedia");
+        source.setLink("https://www.stupidedia.org/stupi/Blue_Screen");
+        source.setAuthor("Robert");
+        source.setDescription("A important article");
+        principle.addSources(source);
+
         {
             GradeRating rating = new GradeRating();
             rating.setEvolvability(StarsOutOf3._2);
@@ -51,7 +58,6 @@ public class JsonTest {
             rating.setResponsibility(Responsibility.SingleDev);
             principle.setGradeRating(rating);
         }
-
 
         Approvals.verifyJson(gson.toJson(grade));
     }

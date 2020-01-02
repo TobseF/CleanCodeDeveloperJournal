@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class GradeSource implements Serializable {
-    private String source;
+
+    private String name;
+    private String link;
     private String author;
     private String description;
 
@@ -24,26 +26,35 @@ public class GradeSource implements Serializable {
         this.description = description;
     }
 
-    public String getSource() {
-        return source;
+    public String getLink() {
+        return link;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradeSource that = (GradeSource) o;
-        return source.equals(that.source) && author.equals(that.author) && description.equals(that.description);
+        GradeSource source = (GradeSource) o;
+        return Objects.equals(name, source.name) &&
+                Objects.equals(link, source.link) &&
+                Objects.equals(author, source.author) &&
+                Objects.equals(description, source.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(source, author, description);
+        return Objects.hash(name, link, author, description);
     }
-
-
 }

@@ -40,7 +40,6 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
         title.setAlignItems(Alignment.BASELINE);
         add(title);
 
-
         ratings = new VerticalLayout();
         ratings.setMaxWidth("320px");
         add(ratings);
@@ -61,9 +60,10 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
 
     public void bind(GradeTopic gradeTopic) {
         name.setText(gradeTopic.getName());
-        description.getElement().setProperty("innerHTML", gradeTopic.getDescription());
+        this.description.getElement().setProperty("innerHTML", gradeTopic.getDescription());
         bind(gradeTopic.getGradeRating());
     }
+
 
     private void bind(GradeRating gradeRating) {
         ratings.add(createRatingLine(getTranslation("domain.grade.rating.evolvability"), gradeRating.getEvolvability()));

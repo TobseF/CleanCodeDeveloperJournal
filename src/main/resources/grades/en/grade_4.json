@@ -1,0 +1,121 @@
+{
+  "locale": "en",
+  "gradeColor": "Green",
+  "number": 4,
+  "principles": [
+    {
+      "name": "Open Closed Principle",
+      "id": "open-closed-principle",
+      "sectionWhy": "Keep the risk as low as possible to destabilize a system by adding new features.",
+      "description": "<p><em>Open Closed Principle</em> (<a href=\"https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle\" target=\"_blank\">OCP</a>) claims to keep a class open for enhancements but closed against modifications. It is another of the <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#solid\">SOLID</a> principles. A code sample shall highlight the problem:</p><pre>public double Price() {\\n    const decimal regularDiscount = 0.95m;\\n    switch(costumerType) {\\n        case CostumerType.FirstTime:\\n            return quantity * pricePerUnit;\\n        case CostumerType.Regular:\\n            return quantity * pricePerUnit * regularDiscount;\\n        default:\\n            throw new ArgumentOutOfRangeException();\\n    }\\n}\\n</pre><p>If another price calculation is introduced, you will have to modify that class. Risk is that the modification can introduce mistakes which break the already existing functionality. The risk to introduce new bugs exists even with automatized unit tests and integration tests in place because 100% test coverage is rare. So it needs a technique which allows to enhance the class without modifying it. One option to achieve this is the <em>Strategy Pattern</em>:</p><pre><code>private IPriceCalculator PriceCalculator;\\npublic double Price() {\\n    return PriceCalculator.Price(quantity, pricePerUnit);\\n}\\n\\npublic interface IPriceCalculator {\\n    double Price(int quantity, double pricePerUnit);\\n}\\npublic class FirstTime : IPriceCalculator {\\n    public double Price(int quantity, double pricePerUnit) {\\n        return quantity \\* pricePerUnit;\\n    }\\n}\\npublic class Regular : IPriceCalculator {\\n    const decimal regularDiscount = 0.95m;\\n    public double Price(int quantity, double pricePerUnit) {\\n     return quantity \\* pricePerUnit \\* regularDiscount;\\n}\\n}</code></pre><p>Concrete price calculation is extracted to separate classes which implement a common interface. Thereby is feasible to add a new implementations of that interface any time. Thus the class will be open for enhancements but at the same time closed against modifications. You may apply the <a href=\"http://www.industriallogic.com/xp/refactoring/conditionalWithStrategy.html\" target=\"_blank\">Replace Conditional with Strategy</a> refactoring to make existing code compliant to Open Closed Principle.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_1",
+        "productionEfficiency": "_1",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Tell, don´t ask",
+      "id": "tell-dont-ask",
+      "sectionWhy": "High cohesion and loose coupling are virtues. Public state details in a class contradict those.",
+      "description": "<p>Speaking radically a class should not have property getters. These mislead clients to do decisions based on values provided by an object. So rather than telling the object what to do, it is asked for a value to guess from outside on the inner state of the object.</p><p>A core principle of Object Oriented Programming is Information Hiding (see also in <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#grade-3-yellow\">yellow grade</a>). No class shall publish details which give indication on how the class is implemented internally. If a class requires an internal state, the value will be typically stored in a private field. This value being visible to the outside will mislead clients to adduce the mainly internal object state for own decisions. With that a class is quickly reduced for data storage only. Telling an object what to do is preferable in any case. Thereby the clients does not need to know how the class accomplishes the task internally.</p><p>Compliance to the a href=\"http://www.pragprog.com/articles/tell-dont-ask\" target=\"_blank\">Tell don’t ask</a> principle results in objects with behavior instead of “stupid” data storage objects. Object interaction becomes loosely coupled as the object don’t need to do assumptions on their collaborating objects. Even more! If objects don’t publish their states, the will keep the power of decision. Cohesion of the code in question grows because it is consolidated into one place.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_0",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Law of Demeter",
+      "id": "law-of-demeter",
+      "sectionWhy": "Object dependencies over multiple service chain elements lead to unpleasantly close coupling.",
+      "description": "<p>The <a href=\"https://en.wikipedia.org/wiki/Law_of_Demeter\" target=\"_blank\">Law of Demeter</a> is about limiting the interplay of objects to a healthy extent. Simplified it means “Don’t talk to strangers”. Following the Law of Demeter a method exclusively uses other methods:</p><ul><li>within the class</li><li>of parameters</li><li>of associated classes</li><li>of self-instantiated objects</li></ul><p >Though: From time to time pure data storage objects do make sense and the Law of Demeter does not need to be applied. E. g. configuration data may nicely be distributed hierarchically over multiple classes so that a value access would finally be as follows:</p><pre>int margin = config.Pages.Margins.Left;</pre><p >Applying the Law of Demeter would only allow access to config.Pages.</p>",
+      "gradeRating": {
+        "evolvability": "_2",
+        "correctness": "_1",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    }
+  ],
+  "practices": [
+    {
+      "name": "Continuous Integration",
+      "id": "continuous-integration",
+      "sectionWhy": "Automatization of centralization of software production increase productivity and reduce risk.",
+      "description": "<p>Often integration of software components is postponed and done costly and error prone by hand. Actually software should be fully loadable at any time. Continuous Integration means a process that takes care to compile and test the code after transmission of changes.</p><p>This is especially important for teams as the whole code base is used, not merely the part one developer currently worked on. Automatized tests should be executed by every developer before transmitting changes to version control. This is not affected by Continuous Integration. To ensure the tests were executed indeed and mistakes get detected early, tests run on the Continuous Integration Server in any case. It doesn’t release the developer from running tests before the Commit. Finally faulty code in version control obstructs the whole team, maybe even further teams. So the Continuous Integration Process ensures across teams that errors are detected as soon as possible.</p><p>Multiple <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#_Tools\">tools</a> are available for the Continuous Integration process. Besides build and test also long running processes like database tests can be automatized. These may be only executed at night for an instance. <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#grade-4-green\">Green grade</a> regards only both build and test process. Continuous setup and deployment follows later in <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#grade-5-blue\">blue grade</a>.</p><p>Martin Fowler wrote an excellent <a href=\"http://www.martinfowler.com/articles/continuousIntegration.html\" target=\"_blank\">article</a> on this topic.</p>",
+      "gradeRating": {
+        "evolvability": "_1",
+        "correctness": "_1",
+        "productionEfficiency": "_2",
+        "continuousImprovement": "_0",
+        "responsibility": "Team"
+      },
+      "sources": []
+    },
+    {
+      "name": "Static Code Analysis (Metrics)",
+      "id": "static-code-analysis",
+      "sectionWhy": "Trust, but verify.",
+      "description": "<p>How is the quality definition for code unit like a class or a component? Is it sufficient to fulfil the customers’ functional requirements? Is it sufficient to be fast enough and scalable? Automatized tests and finally customer tests will tell. Without compliance to requirements naturally software has no relevant quality. If it is not use for the customer, you can spare further questions.</p><p>However, contrary to wide-spread belief it is not sufficient to be just compliant to requirements. High quality does not merely result from functionality and let’s say performance. Besides functional and non-functional requirements there is another usually unspoken requirement: Customers always want software fulfil their requirements today, but also tomorrow and the day after. Customers want investment protection through evolvability.</p><p>For customers this requirement pertains implicitly. They think it come naturally that an immaterial product like software can be eternally adopted to new requirements by pressing a button. Also managers often believe in this. And even software developers themselves.</p><p>The misunderstanding could hardly be bigger. Evolvability neither is self-evident in the sense the target that a software developer strives for, nor comes it naturally out of thin air. Evolvability on the contrary is hard work and steadily needs balancing against other values.</p><p>Other compliances can be determined by (automatized) tests – so what about evolvability? Can code quality be measured in an automatized way regarding vitality and survivability? Partially yes. Not all aspects can be verified by a machine. For instance it won’t recognize if software is being kept open for enhancements via an add-in concept.</p><p>Nevertheless there are measurable´<a href=\"http://en.wikipedia.org/wiki/Software_metric\" target=\"_blank\">metrics</a>´for software. There is support by´<a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#_Tools\">tool</a>s which should be used in any software project.</p><ul><li>Fore legacy code, tools can retrieve the status quo and define a baseline to compare the future code development.</li><li>For new code, developed considering evolvability, static code analysis will show if planned goal was achieved</li></ul><p>Clean Code Developer are not satisfied with having code tested automatically. They always will keep an eye on its evolvability because they know that customers expect it – indifferent if they explicitly said it or not.</p>",
+      "gradeRating": {
+        "evolvability": "_1",
+        "correctness": "_1",
+        "productionEfficiency": "_1",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Inversion of Control Container",
+      "id": "inversion-of-control-container",
+      "sectionWhy": "It is easier to configure things which are not hard-wired.",
+      "description": "<p>In <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#grade-3-yellow\">yellow grade</a> the CCD got to know Dependency Inversion Principle. While there the dependencies were resolved “by hand”, the next step will now be to automatize that. Two techniques are available for this:</p><ul><li>Locator</li><li>Container</li></ul><p>Both use a so-called <em>Inversion of Control Container</em> (IoC Container). Initially the classed used need to be deposited in the container. Then the container can provide instances of the deposited classes. With a <em>Locator</em> this happens explicitly. Advantage is that dependencies do not need to be listed in the class’ constructor. With crosscutting aspects like <em>Logging</em> this is the usual approach. Though normally the dependencies will be provided as constructor parameters. Advantage is that all dependencies are visible. The container can implicitly resolve the dependencies by recursively instancing all required objects via the container.</p><p>IoC container become important when the number of classes is growing. If you consider <em>Separation of Concerns</em>, many small classes with reasonable sizes with be created. Combining instances of these classes will be more effort accordingly. This is where an IoC Container comes into play – it helps with instantiating and combining multiple small objects.</p><p>Further benefit of IoC containers is that they can define the <em>lifecycle</em> of an object via configuration. If there shall be only one unique instance of an object (<em>Singleton</em>), you will simply advice the container to always return the same object. Also other lifecycles like <em>one instance per session</em> are supported.</p><p>To avoid dependency on a specific IoC container you may use <em>Microsoft Common Service Locator</em> (see <a href=\"https://ccd_school.gitbooks.io/clean-code-developer-com/content/02grades/09_Green_Grade.html#_Tools\">Tools</a>). It provides a unified interface to common IoC containers.</p><p>It is helpful to implement the functionality of an IoC container yourself to understand mechanics beyond. Don’t build a fully-fledged container but just the basic functions.</p>",
+      "gradeRating": {
+        "evolvability": "_1",
+        "correctness": "_0",
+        "productionEfficiency": "_2",
+        "continuousImprovement": "_0",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Share Experience",
+      "id": "share-experience",
+      "sectionWhy": "Sharing your experience helps others and yourself.",
+      "description": "<p>Professional work requires up-to-date knowledge. It doesn’t mean that anyone would know everything about software development even only on the .NET platform. Up-to-date knowledge concerns you specialist fields – whichever those might be. Thus other grades contain practices for gathering information over various channels regularly.</p><p>However collecting information is only the first of two steps. The second step is providing information; knowledge transfer. Professionalism includes research and teaching. Only with teaching a subject it will be fully conceived.</p><p>This becomes clear when you try to explain an (assumedly) learned topic to someone else. Quickly questions occur which you never asked yourself. Other people will often have a totally different perspective.</p><p>So you should expose yourself to teaching, passing on information, knowledge transfer. Presenting your learning in your own words in front of an audience will tell you how deep your knowledge really is. Question marks over your “pupils” heads may indicate that something is still wrong.</p><p>A real audience is optimal. This can be a meeting with colleagues or a user group event. You will get direct feedback there. Alternatively or additionally written knowledge transfer are suitable, too. A blog is drafted in 5 minutes and professional magazine are permanently looking for new authors. Feedback is not that direct but still putting your stuff into textual form is a good exercise.</p>",
+      "gradeRating": {
+        "evolvability": "_0",
+        "correctness": "_0",
+        "productionEfficiency": "_0",
+        "continuousImprovement": "_1",
+        "responsibility": "SingleDev"
+      },
+      "sources": []
+    },
+    {
+      "name": "Error Measurement",
+      "id": "error-measurement",
+      "sectionWhy": "You will only be able to reduce the error rate, if you first-hand know how many errors occur and adopt your approach accordingly.",
+      "description": "<p>Mistakes happen. In all phases of software development: Misunderstood or unclear requirements same as buggy implementations. Finally everything is a mistake which results in a software that does not fulfills the customers’ requirements. An iterative approach and reflection are two building blocks which help to improve the process. For knowing if improvement happens, you will have to have a measured variable to compare.</p><p>Error measurement can be counting or taking time. Precision is not in the fore as long as the measuring method returns comparable data. A trend of multiple iterations shall become apparent. In the end it doesn’t matter who caused the error as long as the team learns and improves its process.</p><p>Do not measure errors occurring during development. These are unavoidable and hopefully result in an errorless product at the end of an iteration. It is about errors reported after an iteration from the customer, product owner or support. Those errors interfere implementation of new requirements.</p>",
+      "gradeRating": {
+        "evolvability": "_1",
+        "correctness": "_1",
+        "productionEfficiency": "_1",
+        "continuousImprovement": "_1",
+        "responsibility": "Team"
+      },
+      "sources": []
+    }
+  ]
+}

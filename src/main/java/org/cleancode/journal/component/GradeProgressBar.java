@@ -36,8 +36,6 @@ public class GradeProgressBar extends FlexLayout {
 
     public static class ProgressDay extends Div {
 
-        private Progress progress;
-
         public ProgressDay(String tooltip) {
             this(Progress.Future);
             addToolTip(tooltip);
@@ -56,7 +54,6 @@ public class GradeProgressBar extends FlexLayout {
         }
 
         public void setProgress(Progress progress) {
-            this.progress = progress;
             removeAllStyles();
             addClassName("grade-progress-day");
             addClassName(progress.getClassName());

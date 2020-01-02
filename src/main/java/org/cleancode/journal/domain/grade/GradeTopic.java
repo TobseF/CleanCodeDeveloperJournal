@@ -65,6 +65,10 @@ public class GradeTopic implements Serializable {
         this.sources = sources;
     }
 
+    public void addSources(GradeSource source) {
+        sources.add(source);
+    }
+
     public Grade getGrade() {
         return grade;
     }
