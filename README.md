@@ -5,6 +5,8 @@
 
 > A sample project for Vaadin Flow and Spring Boot
 
+### 🌍 Live demo: [Clean-Code.rocks](http://clean-code.rocks)
+
 Have you tried to become a [Clean Code Developer](https://clean-code-developer.de/) and master the white grade?  
 This webapp helps you to keep the track and reminds you in your current grade goals.
 Log your progress and get achievements for your goals 🏆.
