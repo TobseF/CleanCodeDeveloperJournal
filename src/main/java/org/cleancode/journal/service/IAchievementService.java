@@ -13,5 +13,7 @@ public interface IAchievementService extends Serializable {
 
     Map<Achievement.Group, List<Achievement>> loadAllAchievementsInGroups();
 
+    Achievement loadAchievementById(String achievementId);
+
     List<Achievement> loadAllAchievementsByGroup(Achievement.Group group);
 }

@@ -14,6 +14,7 @@ class Achievement extends PolymerElement {
         width: 360px;
         border-radius: 5px;
         padding: 8px;
+        cursor: pointer;
     }
 
     #footer {

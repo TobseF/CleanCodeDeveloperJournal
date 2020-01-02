@@ -16,4 +16,5 @@ public class LogEntryComponent extends PolymerTemplate<LogEntryModel> {
     public LogEntryModel getModel() {
         return super.getModel();
     }
+
 }

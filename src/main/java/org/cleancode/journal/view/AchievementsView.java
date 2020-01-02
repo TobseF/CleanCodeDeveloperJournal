@@ -1,9 +1,11 @@
 package org.cleancode.journal.view;
 
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AchievementComponent;
+import org.cleancode.journal.component.AchievementComponent.ClickEvent;
 import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.domain.Achievement;
 import org.cleancode.journal.domain.Profile;
@@ -17,7 +19,12 @@ import java.util.Map;
 @Route(layout = MainView.class)
 public class AchievementsView extends VerticalLayout {
 
+    private final Profile profile;
+    private final IAchievementService achievementService;
+
     public AchievementsView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
+        this.profile = profile;
+        this.achievementService = achievementService;
 
         Map<Achievement.Group, List<Achievement>> achievements = achievementService.loadAllAchievementsInGroups();
 
@@ -34,18 +41,23 @@ public class AchievementsView extends VerticalLayout {
     }
 
     public void addAchievement(Achievement achievement) {
-
-        AchievementComponent achievementLine = new AchievementComponent();
+        AchievementComponent achievementLine = new AchievementComponent(achievement.getId());
         achievementLine.getModel().setTitle(getTranslation(achievement.getId()));
         Score score = achievement.getScore();
         achievementLine.getModel().setExperience("+" + score.getExperience() + " XP");
         achievementLine.getModel().setSkills(score.getSkills());
+        achievementLine.addClickListener((ComponentEventListener<ClickEvent>) event -> openAchievementDialog(achievement));
         add(achievementLine);
+    }
+
+    private void openAchievementDialog(Achievement achievement) {
+        AchievementDialog achievementDialog = new AchievementDialog(achievementService, profile);
+        achievementDialog.setSelectedAchievemt(achievement);
+        achievementDialog.open();
     }
 
     private String getTranslation(Achievement.Group group) {
         return getTranslation("achievement.group." + group.name().toLowerCase());
     }
-
 
 }

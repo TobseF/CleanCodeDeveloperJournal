@@ -93,6 +93,15 @@ public class AchievementDialog extends Dialog {
         content.add(actions);
     }
 
+    public AchievementDialog(IAchievementService achievementService, Profile profile) {
+        this(achievementService, profile, null);
+    }
+
+    public void setSelectedAchievemt(Achievement achievement) {
+        groupSelect.setValue(achievement.getGroup());
+        achievementSelect.setValue(achievement);
+    }
+
     private void selectedGroup(Achievement.Group group) {
         achievementSelect.setEnabled(true);
         achievementSelect.setItems(achievementService.loadAllAchievementsByGroup(group));
