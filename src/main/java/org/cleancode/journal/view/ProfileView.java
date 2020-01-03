@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.component.PercentProgressBarComponent;
@@ -20,6 +21,7 @@ import org.cleancode.journal.service.IGradeService;
 import org.cleancode.journal.service.INameService;
 
 @Route(layout = MainView.class)
+@PageTitle("Clean Code - Profile")
 public class ProfileView extends VerticalLayout {
     private final INameService nameService;
 

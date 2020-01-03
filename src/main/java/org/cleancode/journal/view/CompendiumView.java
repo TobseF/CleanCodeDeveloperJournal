@@ -11,6 +11,7 @@ import com.vaadin.flow.component.page.BrowserWindowResizeListener;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.cleancode.journal.component.AddSpeedDial;
@@ -32,6 +33,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
+@PageTitle("Clean Code - Compendium")
 public class CompendiumView extends VerticalLayout implements BrowserWindowResizeListener {
 
     private final ViewMode defaultViewMode = ViewMode.Table;

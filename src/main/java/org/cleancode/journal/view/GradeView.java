@@ -7,6 +7,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AddSpeedDial;
 import org.cleancode.journal.component.BackNavigation;
@@ -24,6 +25,7 @@ import static com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyConte
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Route(layout = MainView.class)
+@PageTitle("Clean Code - Grade")
 public class GradeView extends VerticalLayout implements HasUrlParameter<String> {
 
     private final H2 name;

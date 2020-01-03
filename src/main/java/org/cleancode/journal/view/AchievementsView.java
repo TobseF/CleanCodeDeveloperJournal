@@ -3,6 +3,7 @@ package org.cleancode.journal.view;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.cleancode.journal.component.AchievementComponent;
 import org.cleancode.journal.component.AchievementComponent.ClickEvent;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Route(layout = MainView.class)
+@PageTitle("Clean Code - Achievements")
 public class AchievementsView extends VerticalLayout {
 
     private final Profile profile;
@@ -52,7 +54,7 @@ public class AchievementsView extends VerticalLayout {
 
     private void openAchievementDialog(Achievement achievement) {
         AchievementDialog achievementDialog = new AchievementDialog(achievementService, profile);
-        achievementDialog.setSelectedAchievemt(achievement);
+        achievementDialog.setSelectedAchievement(achievement);
         achievementDialog.open();
     }
 

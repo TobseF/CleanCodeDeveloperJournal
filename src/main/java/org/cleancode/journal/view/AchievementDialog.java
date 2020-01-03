@@ -97,7 +97,7 @@ public class AchievementDialog extends Dialog {
         this(achievementService, profile, null);
     }
 
-    public void setSelectedAchievemt(Achievement achievement) {
+    public void setSelectedAchievement(Achievement achievement) {
         groupSelect.setValue(achievement.getGroup());
         achievementSelect.setValue(achievement);
     }

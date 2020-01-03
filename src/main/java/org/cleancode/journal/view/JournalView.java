@@ -10,6 +10,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import org.cleancode.journal.component.*;
@@ -32,6 +33,7 @@ import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
 @RouteAlias(value = "", layout = MainView.class)
+@PageTitle("Clean Code Journal")
 public class JournalView extends VerticalLayout {
     private final IProgressService progressService;
     private final GradeService gradeService;

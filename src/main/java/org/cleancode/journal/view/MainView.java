@@ -15,7 +15,7 @@ import org.cleancode.journal.component.SingleBreadcrumb;
 //@PreserveOnRefresh
 @CssImport("./styles/shared-styles.css")
 @Theme(value = Material.class, variant = Lumo.DARK)
-@PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal")
+@PWA(name = "Clean Code Developer Journal", shortName = "Clean Code Journal", backgroundColor = "#3B3B3B")
 public class MainView extends AppLayout {
 
     public MainView() {
