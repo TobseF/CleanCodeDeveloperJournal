@@ -3,11 +3,8 @@ package org.cleancode.journal.view;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridSortOrder;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.BrowserWindowResizeEvent;
-import com.vaadin.flow.component.page.BrowserWindowResizeListener;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -27,14 +24,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static com.vaadin.flow.data.provider.SortDirection.ASCENDING;
 import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
 @PageTitle("Clean Code - Compendium")
-public class CompendiumView extends VerticalLayout implements BrowserWindowResizeListener {
+public class CompendiumView extends VerticalLayout {
 
     private final ViewMode defaultViewMode = ViewMode.Table;
     private final Grid<GradeTopic> table;
@@ -61,8 +57,6 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
 
         add(new AddSpeedDial(profile, gradeService, achievementService));
 
-        UI.getCurrent().getPage().addBrowserWindowResizeListener(this);
-        UI.getCurrent().getPage().retrieveExtendedClientDetails(details -> resizeTable(details.getWindowInnerWidth()));
     }
 
     private TextField createFilter(IGradeService gradeService) {
@@ -105,24 +99,19 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
         Grid<GradeTopic> table = new Grid<>();
         table.setItems(gradeTopics);
 
-        Grid.Column<GradeTopic> columnName = table.addColumn(GradeTopic::getName).
-                setHeader(getTranslation("domain.grade.name")).
-                setSortable(true).setAutoWidth(true);
+        table.addColumn(GradeTopic::getName).setHeader("Name").setSortable(true);
 
-        columnGrade = table.addColumn(this::formatTopic).
-                setHeader(getTranslation("domain.grade.grade")).
-                setSortable(true).setAutoWidth(true);
+        table.addColumn(this::formatTopic).setHeader("Grad").setSortable(true);
 
-        columnResponsibility = table.addColumn(topic -> topic.getGradeRating().getResponsibility()).
-                setHeader(getTranslation("domain.grade.rating.responsibility")).
-                setSortable(true).setAutoWidth(true);
-
-        table.sort(List.of(new GridSortOrder<>(columnName, ASCENDING)));
-
-        table.addSelectionListener(event -> event.getFirstSelectedItem().ifPresent(this::openGradeTopic));
-        table.recalculateColumnWidths();
+        table.addSelectionListener(event -> event.getFirstSelectedItem().
+                ifPresent(this::openGradeTopic));
         return table;
     }
+
+    private String formatTopic(GradeTopic topic) {
+        return topic.getGrade().getGradeColor().name();
+    }
+
 
     public void addGrade(Accordion tree, Grade grade, Collection<GradeTopic> gradeTopics) {
 
@@ -148,11 +137,6 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
         tree.add(gradeName, gradeOverview);
     }
 
-    private String formatTopic(GradeTopic topic) {
-        Grade grade = topic.getGrade();
-        String gradeColor = getTranslation(grade.getGradeColor().getMessageKey());
-        return grade.getNumber() + " " + gradeColor;
-    }
 
     public void setViewMode(ViewMode viewMode) {
         table.setVisible(false);
@@ -167,20 +151,6 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
         }
     }
 
-    @Override
-    public void browserWindowResized(BrowserWindowResizeEvent browserWindowResizeEvent) {
-        resizeTable(browserWindowResizeEvent.getWidth());
-    }
-
-    /**
-     * Hide column grade and responsibility if there is not enough space to display them.
-     *
-     * @param windowWidth in pixels
-     */
-    private void resizeTable(int windowWidth) {
-        columnGrade.setVisible(windowWidth > 500);
-        columnResponsibility.setVisible(windowWidth > 580);
-    }
 
     private enum ViewMode {Tree, Table}
 
