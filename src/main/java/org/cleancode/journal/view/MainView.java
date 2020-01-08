@@ -3,6 +3,7 @@ package org.cleancode.journal.view;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
@@ -21,7 +22,9 @@ public class MainView extends AppLayout {
     public MainView() {
 
         addToNavbar(new DrawerToggle());
-        addToNavbar(new H4(getTranslation("app.name")));
+        addToNavbar(new H4(getTranslation("app.outdated")));
+        addToNavbar(new H4(" "));
+        addToNavbar(new Anchor("http://clean-code.rocks", "clean-code.rocks"));
         addToNavbar(new SingleBreadcrumb());
 
         addToDrawer(createMenuBar());
