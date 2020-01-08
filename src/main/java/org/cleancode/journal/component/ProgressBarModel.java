@@ -2,63 +2,22 @@ package org.cleancode.journal.component;
 
 import com.vaadin.flow.templatemodel.TemplateModel;
 
-import java.util.Objects;
+public interface ProgressBarModel extends TemplateModel {
 
-public class ProgressBarModel implements TemplateModel {
+    String getDescription();
 
-    private String description;
-    private String value;
-    private String label;
-    private int percent;
+    void setDescription(String description);
 
-    public String getDescription() {
-        return description;
-    }
+    String getValue();
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    void setValue(String value);
 
-    public String getValue() {
-        return value;
-    }
+    String getLabel();
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+    void setLabel(String label);
 
+    int getPercent();
 
-    public String getLabel() {
-        return label;
-    }
+    void setPercent(int percent);
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public int getPercent() {
-        return percent;
-    }
-
-    public void setPercent(int percent) {
-        this.percent = percent;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProgressBarModel)) return false;
-        ProgressBarModel that = (ProgressBarModel) o;
-        return percent == that.percent && Objects.equals(description, that.description) && Objects.equals(value, that.value) && Objects.equals(label, that.label);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(description, value, label, percent);
-    }
-
-    @Override
-    public String toString() {
-        return "ProgressBarModel{" + "description='" + description + '\'' + ", value='" + value + '\'' + ", label='" + label + '\'' + ", percent=" + percent + '}';
-    }
 }

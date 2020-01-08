@@ -5,9 +5,9 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.cleancode.journal.component.AchievementComponent;
-import org.cleancode.journal.component.AchievementComponent.ClickEvent;
 import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.achievement.AchievementComponent;
+import org.cleancode.journal.component.achievement.ClickEvent;
 import org.cleancode.journal.domain.Achievement;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.Score;
@@ -43,7 +43,7 @@ public class AchievementsView extends VerticalLayout {
     }
 
     public void addAchievement(Achievement achievement) {
-        AchievementComponent achievementLine = new AchievementComponent(achievement.getId());
+        AchievementComponent achievementLine = new AchievementComponent();
         achievementLine.getModel().setTitle(getTranslation(achievement.getId()));
         Score score = achievement.getScore();
         achievementLine.getModel().setExperience("+" + score.getExperience() + " XP");

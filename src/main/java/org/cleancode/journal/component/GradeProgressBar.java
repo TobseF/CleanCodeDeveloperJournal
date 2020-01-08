@@ -4,45 +4,30 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.stream;
-
 public class GradeProgressBar extends FlexLayout {
-
-    private final int dayWidth = 10;
-    private final int minimalDayGap = 4;
-    private final int maximalDayGap = 16;
-
-    private List<ProgressDay> days = new ArrayList<>();
 
     public GradeProgressBar() {
         setWidthFull();
         setJustifyContentMode(JustifyContentMode.EVENLY);
         setAlignItems(Alignment.END);
         addClassName("grade-progress");
-        setWidthFull();
     }
 
     public void setDays(List<ProgressDay> days) {
-        this.days = days;
-
-        setMinWidth((days.size() * (dayWidth + minimalDayGap)) + "px");
-        setMaxWidth((days.size() * (dayWidth + maximalDayGap)) + "px");
-
         days.forEach(this::add);
+    }
+
+    public void addDay(ProgressDay day) {
+        add(day);
     }
 
     public static class ProgressDay extends Div {
 
         public ProgressDay(String tooltip) {
-            this(Progress.Future);
+            addClassName("grade-progress-day");
             addToolTip(tooltip);
-        }
-
-        public ProgressDay(Progress progress) {
-            setProgress(progress);
         }
 
         private void addToolTip(String tooltip) {
@@ -53,24 +38,14 @@ public class GradeProgressBar extends FlexLayout {
             add(span);
         }
 
-        public void setProgress(Progress progress) {
-            removeAllStyles();
-            addClassName("grade-progress-day");
-            addClassName(progress.getClassName());
+        public void setDaySubmitted() {
+            addClassName("day-submitted");
         }
 
-        public void removeAllStyles() {
-            stream(Progress.values()).map(Progress::getClassName).forEach(this::removeClassName);
+        public void setDayInFuture() {
+            addClassName("day-future");
         }
 
-        public enum Progress {
-            Unknown, Submitted, SubmittedOK, Future;
-
-            public String getClassName() {
-                return "day-" + name().toLowerCase();
-            }
-
-        }
     }
 
 }

@@ -202,17 +202,13 @@ public class JournalView extends VerticalLayout {
 
         ProgressDay progressDay = new ProgressDay(formatter.format(day.getDate()));
         switch (day.getType()) {
-            case Empty:
-                progressDay.setProgress(ProgressDay.Progress.Unknown);
-                break;
             case Fulfilled:
-                progressDay.setProgress(ProgressDay.Progress.SubmittedOK);
-                break;
             case PartialFulfilled:
-                progressDay.setProgress(ProgressDay.Progress.Submitted);
+                progressDay.setDaySubmitted();
+                break;
         }
         if (day.getDate().isAfter(LocalDate.now())) {
-            progressDay.setProgress(ProgressDay.Progress.Future);
+            progressDay.setDayInFuture();
         }
         return progressDay;
     }
