@@ -3,7 +3,8 @@
 }
 
 .grade-progress-day {
-    background-color: white;
+    background-color: grey;
+    color: grey;
     width: 10px;
     height: 40px;
     transition: border-top 0.8s;
@@ -11,21 +12,7 @@
     bottom: 0;
 }
 
-.grade-progress-day:hover {
-    border-top: solid currentColor 10px;
-}
-
-.day-unknown {
-    background-color: grey;
-    color: grey;
-}
-
 .day-submitted {
-    background-color: yellow;
-    color: yellow;
-}
-
-.day-submittedok {
     background-color: green;
     color: green;
 }
