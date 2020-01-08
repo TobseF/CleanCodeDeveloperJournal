@@ -1,4 +1,4 @@
-package org.cleancode.journal.component;
+package org.cleancode.journal.component.achievement;
 
 import com.vaadin.flow.templatemodel.TemplateModel;
 

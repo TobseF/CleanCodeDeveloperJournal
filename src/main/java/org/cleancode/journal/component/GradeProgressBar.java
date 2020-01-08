@@ -19,6 +19,10 @@ public class GradeProgressBar extends FlexLayout {
         days.forEach(this::add);
     }
 
+    public void addDay(ProgressDay day) {
+        add(day);
+    }
+
     public static class ProgressDay extends Div {
 
         public ProgressDay(String tooltip) {
