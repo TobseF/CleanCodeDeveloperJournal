@@ -7,58 +7,41 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 import static org.cleancode.journal.util.IconUtil.getIcon;
 
 @NpmPackage(value = "@polymer/iron-icons", version = "3.0.0")
-public class LogEntryModel implements TemplateModel {
+public interface LogEntryModel extends TemplateModel {
 
-    public String grade;
-    private String comment;
-    private String username;
-    private String date;
-    private String experience;
-    private String skills;
-    private String topic;
-    private String typeicon;
+    String getTypeicon();
 
-    public String getTypeicon() {
-        return typeicon;
-    }
+    void setTypeicon(String typeicon);
 
-    public void setTypeicon(String typeicon) {
-        this.typeicon = typeicon;
-    }
+    String getSkills();
 
-    public String getSkills() {
-        return skills;
-    }
+    void setSkills(String skills);
 
-    public String getTopic() {
-        return topic;
-    }
+    String getTopic();
 
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
+    void setTopic(String topic);
 
-    public String getGrade() {
-        return grade;
-    }
+    String getGrade();
 
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
+    void setGrade(String grade);
 
-    public String getExperience() {
-        return experience;
-    }
+    String getExperience();
 
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
+    void setExperience(String experience);
 
-    public void setSkills(String skills) {
-        this.skills = skills;
-    }
+    String getComment();
 
-    public enum Icon {
+    void setComment(String comment);
+
+    String getUsername();
+
+    void setUsername(String username);
+
+    String getDate();
+
+    void setDate(String date);
+
+    enum Icon {
         Check(getIcon(VaadinIcon.CHECK_CIRCLE_O)), Achievement(getIcon(VaadinIcon.TROPHY));
         final String iconPath;
 
@@ -69,29 +52,5 @@ public class LogEntryModel implements TemplateModel {
         public String getIconPath() {
             return iconPath;
         }
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 }
