@@ -1,4 +1,4 @@
-package org.cleancode.journal.component;
+package org.cleancode.journal.component.speeddial;
 
 import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;
@@ -24,8 +24,10 @@ public class AddSpeedDial extends SpeedDial {
         this.gradeService = gradeService;
         this.achievementService = achievementService;
         setBackdrop(false);
-        addMenuItem(getTranslation("app.action.add.log-achievement"), TROPHY.create(), e -> activateAchievement());
-        addMenuItem(getTranslation("app.action.add.log-block"), NOTEBOOK.create(), e -> createNote());
+        var achievement = addMenuItem(getTranslation("app.action.add.log-achievement"), TROPHY.create());
+        achievement.addClickListener(e -> activateAchievement());
+        var log = addMenuItem(getTranslation("app.action.add.log-block"), NOTEBOOK.create());
+        log.addClickListener(e -> createNote());
     }
 
     public void createNote() {

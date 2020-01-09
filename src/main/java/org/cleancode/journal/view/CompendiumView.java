@@ -11,7 +11,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.speeddial.AddSpeedDial;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeTopic;
