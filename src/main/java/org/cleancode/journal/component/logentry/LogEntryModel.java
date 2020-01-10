@@ -1,4 +1,4 @@
-package org.cleancode.journal.component;
+package org.cleancode.journal.component.logentry;
 
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.icon.VaadinIcon;

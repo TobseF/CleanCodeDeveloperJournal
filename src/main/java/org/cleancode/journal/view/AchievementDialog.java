@@ -12,7 +12,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
-import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.speeddial.AddSpeedDial;
 import org.cleancode.journal.domain.Achievement;
 import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;

@@ -1,4 +1,4 @@
-package org.cleancode.journal.component;
+package org.cleancode.journal.component.speeddial;
 
 import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;

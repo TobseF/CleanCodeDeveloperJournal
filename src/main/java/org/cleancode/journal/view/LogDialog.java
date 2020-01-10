@@ -15,7 +15,7 @@ import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.renderer.TextRenderer;
-import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.speeddial.AddSpeedDial;
 import org.cleancode.journal.domain.LogEntry;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.GradeTopic;

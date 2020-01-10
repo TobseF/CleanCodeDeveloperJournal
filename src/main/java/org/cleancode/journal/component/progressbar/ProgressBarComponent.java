@@ -1,4 +1,4 @@
-package org.cleancode.journal.component;
+package org.cleancode.journal.component.progressbar;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;

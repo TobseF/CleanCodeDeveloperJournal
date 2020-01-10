@@ -1,4 +1,4 @@
-package org.cleancode.journal.component;
+package org.cleancode.journal.component.progressbar;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;

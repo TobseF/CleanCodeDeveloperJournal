@@ -14,7 +14,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.speeddial.AddSpeedDial;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.domain.grade.Grade;
 import org.cleancode.journal.domain.grade.GradeTopic;
@@ -52,7 +52,7 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
         controls.add(createFilter(gradeService));
 
         Collection<GradeTopic> gradeTopics = gradeService.loadAllTopics(getLocale());
-        table = creteTable(gradeTopics);
+        table = createTable(gradeTopics);
         add(table);
         tree = createTree(gradeTopics);
         add(tree);
@@ -101,7 +101,7 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
         return tree;
     }
 
-    private Grid<GradeTopic> creteTable(Collection<GradeTopic> gradeTopics) {
+    private Grid<GradeTopic> createTable(Collection<GradeTopic> gradeTopics) {
         Grid<GradeTopic> table = new Grid<>();
         table.setItems(gradeTopics);
 

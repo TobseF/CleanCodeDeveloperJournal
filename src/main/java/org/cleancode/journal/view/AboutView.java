@@ -4,7 +4,7 @@ import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.cleancode.journal.component.AddSpeedDial;
+import org.cleancode.journal.component.speeddial.AddSpeedDial;
 import org.cleancode.journal.domain.Profile;
 import org.cleancode.journal.service.IAchievementService;
 import org.cleancode.journal.service.IGradeService;
