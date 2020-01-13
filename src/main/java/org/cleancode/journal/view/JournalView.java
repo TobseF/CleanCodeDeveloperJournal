@@ -1,5 +1,6 @@
 package org.cleancode.journal.view;
 
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.details.Details;
@@ -8,6 +9,7 @@ import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -38,7 +40,7 @@ import static java.util.stream.Collectors.toList;
 @Route(layout = MainView.class)
 @RouteAlias(value = "", layout = MainView.class)
 @PageTitle("Clean Code Journal")
-public class JournalView extends VerticalLayout {
+public class JournalView extends Composite<VerticalLayout> {
     private final IProgressService progressService;
     private final GradeService gradeService;
     private final Profile profile;
@@ -49,10 +51,11 @@ public class JournalView extends VerticalLayout {
         this.progressService = progressService;
         this.gradeService = gradeService;
         this.profile = profile;
+        var content = getContent();
 
         GradeColor currentGrade = profile.getCurrentGrade();
 
-        add(createStatusBar());
+        content.add(createStatusBar());
 
         addFavorites();
 
@@ -61,7 +64,7 @@ public class JournalView extends VerticalLayout {
         log = new VerticalLayout();
         log.setPadding(false);
         log.setSizeFull();
-        add(log);
+        content.add(log);
         bindLogEntries();
 
 
@@ -73,7 +76,7 @@ public class JournalView extends VerticalLayout {
                 bindLogEntries();
             }
         });
-        add(addSpeedDial);
+        content.add(addSpeedDial);
     }
 
     private void bindLogEntries() {
@@ -106,9 +109,9 @@ public class JournalView extends VerticalLayout {
         if (favorites != null) {
             favorites.removeAll();
         } else {
-            add(new H4(getTranslation("journal.section.favorites")));
+            getContent().add(new H4(getTranslation("journal.section.favorites")));
             favorites = new VerticalLayout();
-            add(favorites);
+            getContent().add(favorites);
         }
         Collection<String> favoriteTopicIds = profile.getFavoriteTopicIds();
         favoriteTopicIds.stream().map(this::loadGradeTopicById).forEach(this::addFavorite);
@@ -134,7 +137,7 @@ public class JournalView extends VerticalLayout {
     public void addGradeTopics(List<? extends GradeTopic> topics, String heading) {
         Details details = new Details();
         details.setSummaryText(heading);
-        add(details);
+        getContent().add(details);
         topics.stream().map(this::createGradeTopicLine).forEach(details::addContent);
     }
 

@@ -1,5 +1,6 @@
 package org.cleancode.journal.view;
 
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.grid.Grid;
@@ -34,7 +35,7 @@ import static java.util.stream.Collectors.toList;
 
 @Route(layout = MainView.class)
 @PageTitle("Clean Code - Compendium")
-public class CompendiumView extends VerticalLayout implements BrowserWindowResizeListener {
+public class CompendiumView extends Composite<VerticalLayout> implements BrowserWindowResizeListener {
 
     private final ViewMode defaultViewMode = ViewMode.Table;
     private final Grid<GradeTopic> table;
@@ -43,23 +44,24 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
     private Grid.Column<GradeTopic> columnResponsibility;
 
     public CompendiumView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
-        setHeightFull();
+        var content = getContent();
+        content.setHeightFull();
 
         HorizontalLayout controls = new HorizontalLayout();
-        add(controls);
+        content.add(controls);
         controls.add(createModeSelect());
 
         controls.add(createFilter(gradeService));
 
         Collection<GradeTopic> gradeTopics = gradeService.loadAllTopics(getLocale());
         table = createTable(gradeTopics);
-        add(table);
+        content.add(table);
         tree = createTree(gradeTopics);
-        add(tree);
+        content.add(tree);
 
         setViewMode(defaultViewMode);
 
-        add(new AddSpeedDial(profile, gradeService, achievementService));
+        content.add(new AddSpeedDial(profile, gradeService, achievementService));
 
         UI.getCurrent().getPage().addBrowserWindowResizeListener(this);
         UI.getCurrent().getPage().retrieveExtendedClientDetails(details -> resizeTable(details.getWindowInnerWidth()));
@@ -80,7 +82,7 @@ public class CompendiumView extends VerticalLayout implements BrowserWindowResiz
 
         Accordion newTree = createTree(filteredTopics);
         newTree.setVisible(tree.isVisible());
-        replace(this.tree, newTree);
+        getContent().replace(this.tree, newTree);
         tree = newTree;
     }
 

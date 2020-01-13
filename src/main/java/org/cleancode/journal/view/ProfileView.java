@@ -1,9 +1,11 @@
 package org.cleancode.journal.view;
 
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
@@ -22,23 +24,19 @@ import org.cleancode.journal.service.INameService;
 
 @Route(layout = MainView.class)
 @PageTitle("Clean Code - Profile")
-public class ProfileView extends VerticalLayout {
+public class ProfileView extends Composite<VerticalLayout> {
     private final INameService nameService;
 
     public ProfileView(INameService nameService, Profile profile, IGradeService gradeService, IAchievementService achievementService) {
         this.nameService = nameService;
+        var content = getContent();
 
-        add(createExperienceBar(profile));
-
-        add(createScoreBars(profile));
-
-        add(createNameField(profile));
-
-        add(createPasswordField());
-
-        add(createGradeSelect(profile));
-
-        add(new AddSpeedDial(profile, gradeService, achievementService));
+        content.add(createExperienceBar(profile));
+        content.add(createScoreBars(profile));
+        content.add(createNameField(profile));
+        content.add(createPasswordField());
+        content.add(createGradeSelect(profile));
+        content.add(new AddSpeedDial(profile, gradeService, achievementService));
     }
 
     private HorizontalLayout createScoreBars(Profile profile) {
