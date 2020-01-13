@@ -25,6 +25,11 @@ public class SpeedDial extends Component implements HasEnabled {
         return speedDialAction;
     }
 
+    @Synchronize("opened-changed")
+    public boolean isOpened() {
+        return getElement().getProperty("opened", false);
+    }
+
     public void setBackdrop(boolean backdrop) {
         if (backdrop) {
             getElement().setAttribute("with-backdrop", EMPTY);
@@ -34,11 +39,11 @@ public class SpeedDial extends Component implements HasEnabled {
     }
 
     public void close() {
-        getElement().executeJs("this.opened=false");
+        getElement().setProperty("opened", false);
     }
 
     public void open() {
-        getElement().executeJs("this.opened=true");
+        getElement().setProperty("opened", true);
     }
 
     @Override
