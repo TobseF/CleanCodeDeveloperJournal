@@ -1,6 +1,7 @@
 package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @Route(layout = MainView.class)
 @PageTitle("Clean Code - Achievements")
-public class AchievementsView extends VerticalLayout {
+public class AchievementsView extends Composite<VerticalLayout> {
 
     private final Profile profile;
     private final IAchievementService achievementService;
@@ -32,12 +33,12 @@ public class AchievementsView extends VerticalLayout {
 
         achievements.keySet().stream().sorted().map(achievements::get).forEach(this::addAchievements);
 
-        add(new AddSpeedDial(profile, gradeService, achievementService));
+        getContent().add(new AddSpeedDial(profile, gradeService, achievementService));
     }
 
     public void addAchievements(List<Achievement> achievements) {
         String groupName = getTranslation(achievements.iterator().next().getGroup());
-        add(new H3(groupName));
+        getContent().add(new H3(groupName));
 
         achievements.forEach(this::addAchievement);
     }
@@ -49,7 +50,7 @@ public class AchievementsView extends VerticalLayout {
         achievementLine.getModel().setExperience("+" + score.getExperience() + " XP");
         achievementLine.getModel().setSkills(score.getSkills());
         achievementLine.addClickListener((ComponentEventListener<ClickEvent>) event -> openAchievementDialog(achievement));
-        add(achievementLine);
+        getContent().add(achievementLine);
     }
 
     private void openAchievementDialog(Achievement achievement) {

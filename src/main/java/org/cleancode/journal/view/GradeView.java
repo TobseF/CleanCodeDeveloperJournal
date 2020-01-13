@@ -1,8 +1,10 @@
 package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -26,7 +28,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Route(layout = MainView.class)
 @PageTitle("Clean Code - Grade")
-public class GradeView extends VerticalLayout implements HasUrlParameter<String> {
+public class GradeView extends Composite<VerticalLayout> implements HasUrlParameter<String> {
 
     private final H2 name;
     private final Label description;
@@ -35,21 +37,22 @@ public class GradeView extends VerticalLayout implements HasUrlParameter<String>
 
     public GradeView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
         this.gradeService = gradeService;
+        var content = getContent();
 
         name = new H2(EMPTY);
         BackNavigation backNavigation = new BackNavigation();
         HorizontalLayout title = new HorizontalLayout(backNavigation, name);
         title.setAlignItems(Alignment.BASELINE);
-        add(title);
+        content.add(title);
 
         ratings = new VerticalLayout();
         ratings.setMaxWidth("320px");
-        add(ratings);
+        content.add(ratings);
 
         description = new Label();
-        add(description);
+        content.add(description);
 
-        add(new AddSpeedDial(profile, gradeService, achievementService));
+        content.add(new AddSpeedDial(profile, gradeService, achievementService));
     }
 
     @Override
