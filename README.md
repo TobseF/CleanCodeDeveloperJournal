@@ -63,25 +63,25 @@ The demos show 5 different ways how to build a Vaadin interface component:
 
 ## 📁 Structure
  * frontend
-   * `src`  
+   * `src`[📎](/frontend/src)  
    Polymer templates or vaadin designer files.
-   * `styles`  
+   * `styles`[📎](/frontend/styles)  
    CSS-files
  * java
-    * `org.cleancode.journal.component`  
+    * `org.cleancode.journal.component`[📎](/src/main/java/org/cleancode/journal/component)  
     Ui-components
-    * `org.cleancode.domain`  
+    * `org.cleancode.journal.domain`[📎](/src/main/java/org/cleancode/journal/domain)  
     Domain entities which could be saved in a DB
-    * `org.cleancode.service`  
+    * `org.cleancode.journal.service`[📎](/src/main/java/org/cleancode/journal/service)  
     Spring services which load, save or manipulate domain entities
-    * `org.cleancode.util`  
+    * `org.cleancode.journal.util`[📎](/src/main/java/org/cleancode/journal/util)  
     Stateless helper functions  
-    * `org.cleancode.view`  
+    * `org.cleancode.journal.view`[📎](/src/main/java/org/cleancode/journal/view)  
     All views (pages) and dialogs       
 * resources
-   * `application.properties`  
+   * `application.properties`[📎](/src/main/resources/application.properties)  
    Static application properties
-   * `translation`  
+   * `translation`[📎](/src/main/resources/translation_en.properties)  
    I18N resource bundles
 
 ## 📜 Licence
