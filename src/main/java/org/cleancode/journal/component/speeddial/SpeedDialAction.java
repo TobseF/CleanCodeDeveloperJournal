@@ -31,20 +31,8 @@ public class SpeedDialAction extends Label implements HasEnabled {
     @DomEvent("click")
     public static class ClickEvent extends ComponentEvent<SpeedDialAction> {
 
-        private int x, y;
-
-        public ClickEvent(SpeedDialAction source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
+        public ClickEvent(SpeedDialAction source, boolean fromClient) {
             super(source, fromClient);
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
         }
 
     }

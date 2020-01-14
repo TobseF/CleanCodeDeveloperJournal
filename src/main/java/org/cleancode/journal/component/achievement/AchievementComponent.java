@@ -1,6 +1,9 @@
 package org.cleancode.journal.component.achievement;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.DomEvent;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
@@ -34,21 +37,8 @@ public class AchievementComponent extends PolymerTemplate<AchievementModel> {
     @DomEvent("click")
     public static class ClickEvent extends ComponentEvent<AchievementComponent> {
 
-        private int x, y;
-
-        public ClickEvent(AchievementComponent source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
+        public ClickEvent(AchievementComponent source, boolean fromClient) {
             super(source, fromClient);
-            this.x = x;
-            this.y = y;
         }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
     }
 }

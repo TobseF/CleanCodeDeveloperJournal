@@ -2,9 +2,6 @@ package org.cleancode.journal.view;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.Html;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -18,15 +15,7 @@ import org.cleancode.journal.service.IGradeService;
 public class AboutView extends Composite<VerticalLayout> {
 
     public AboutView(Profile profile, IGradeService gradeService, IAchievementService achievementService) {
-
         var content = getContent();
-
-        HorizontalLayout line = new HorizontalLayout();
-        line.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
-        line.add(new Button("A"));
-        line.add(new Button("B"));
-        line.setSizeFull();
-        content.add(line);
 
         content.add(new Html(getTranslation("about.info")));
         content.add(new Html(getTranslation("about.info.technical")));
