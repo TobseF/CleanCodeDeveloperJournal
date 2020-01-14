@@ -8,7 +8,7 @@
 
 > A sample project for Vaadin Flow and Spring Boot
 
-![Screenshot](https://raw.githubusercontent.com/TobseF/CleanCodeDeveloperJournal/gh-pages/image/screenshot.png)
+[![Screenshot](https://raw.githubusercontent.com/TobseF/CleanCodeDeveloperJournal/gh-pages/image/screenshot.png)](http://clean-code.rocks)
 
 Have you tried to become a [Clean Code Developer](https://clean-code-developer.de/) and master the white grade?  
 This web-app helps you to keep the track and reminds you in your current grade goals.
