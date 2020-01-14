@@ -25,13 +25,12 @@ public class Day implements Comparable<Day>, Serializable {
         logEntries.add(logEntry);
     }
 
-    public Type getType() {
-        if (logEntries.isEmpty()) {
-            return Type.Empty;
-        } else if (logEntries.stream().allMatch(LogEntry::isFulfilled)) {
-            return Type.Fulfilled;
-        }
-        return Type.PartialFulfilled;
+    public boolean isEmpty() {
+        return logEntries.isEmpty();
+    }
+
+    public boolean isSubmitted() {
+        return !isEmpty();
     }
 
     @Override
@@ -57,7 +56,6 @@ public class Day implements Comparable<Day>, Serializable {
         return ToStringUtil.toString(date) + ":" + logEntries.size();
     }
 
-    public enum Type {Empty, Fulfilled, PartialFulfilled}
 
 
 }

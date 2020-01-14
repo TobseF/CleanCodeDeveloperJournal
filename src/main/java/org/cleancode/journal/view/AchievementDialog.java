@@ -26,61 +26,36 @@ public class AchievementDialog extends Dialog {
     private final IAchievementService achievementService;
     private final Profile profile;
     private final AddSpeedDial.NewLogEntryListener entryListener;
-    private final TextArea comment;
-    private final Select<Achievement.Group> groupSelect;
-    private final Select<Achievement> achievementSelect;
+    private TextArea comment;
+    private Select<Achievement.Group> groupSelect;
+    private Select<Achievement> achievementSelect;
 
     public AchievementDialog(IAchievementService achievementService, Profile profile, AddSpeedDial.NewLogEntryListener entryListener) {
         this.achievementService = achievementService;
         this.profile = profile;
         this.entryListener = entryListener;
 
+        setCloseOnOutsideClick(false);
+        setWidth("360px");
+        setHeight("600px");
+
         VerticalLayout content = new VerticalLayout();
         content.setJustifyContentMode(JustifyContentMode.BETWEEN);
         content.setSizeFull();
         add(content);
 
-        HorizontalLayout title = new HorizontalLayout();
-        title.setAlignItems(FlexComponent.Alignment.BASELINE);
-        title.setJustifyContentMode(JustifyContentMode.CENTER);
-        title.setWidthFull();
-        title.add(new Icon(VaadinIcon.TROPHY));
-        title.add(new H2(getTranslation("dialog.achievement.achievement")));
-        title.setMargin(false);
-        title.setPadding(false);
-        content.add(title);
+        addTitle(content);
 
-        setWidth("360px");
-        setHeight("600px");
+        addGroupSelect(content);
 
-        groupSelect = new Select<>();
-        groupSelect.setLabel(getTranslation("dialog.achievement.category"));
-        groupSelect.setItems(Achievement.Group.values());
-        groupSelect.setItemLabelGenerator(this::getTranslation);
-        groupSelect.setWidthFull();
-        groupSelect.addValueChangeListener(e -> selectedGroup(e.getValue()));
-        content.add(groupSelect);
+        addAchievementSelect(content);
 
+        addComment(content);
 
-        achievementSelect = new Select<>();
-        achievementSelect.setLabel(getTranslation("dialog.achievement.achievement"));
-        achievementSelect.setEnabled(false);
-        achievementSelect.setItemLabelGenerator(this::getTranslation);
-        achievementSelect.setWidthFull();
-        content.add(achievementSelect);
+        addActions(content);
+    }
 
-
-        comment = new TextArea();
-        comment.setWidthFull();
-        comment.setHeightFull();
-        comment.setLabel(getTranslation("dialog.log.comment"));
-        comment.setPlaceholder(getTranslation("dialog.log.comment.placeholder"));
-        content.setFlexGrow(1, comment);
-        content.add(comment);
-
-        setCloseOnOutsideClick(false);
-        setCloseOnOutsideClick(false);
-
+    private void addActions(VerticalLayout content) {
         Button ok = new Button(getTranslation("dialog.achievement.commit"));
         ok.addClickListener(e -> submit());
         Button cancel = new Button(getTranslation("dialog.achievement.cancel"));
@@ -91,6 +66,47 @@ public class AchievementDialog extends Dialog {
         actions.setJustifyContentMode(JustifyContentMode.END);
 
         content.add(actions);
+    }
+
+    private void addTitle(VerticalLayout content) {
+        HorizontalLayout title = new HorizontalLayout();
+        title.setAlignItems(FlexComponent.Alignment.BASELINE);
+        title.setJustifyContentMode(JustifyContentMode.CENTER);
+        title.setWidthFull();
+        title.add(new Icon(VaadinIcon.TROPHY));
+        title.add(new H2(getTranslation("dialog.achievement.achievement")));
+        title.setMargin(false);
+        title.setPadding(false);
+        content.add(title);
+    }
+
+    private void addAchievementSelect(VerticalLayout content) {
+        achievementSelect = new Select<>();
+        achievementSelect.setLabel(getTranslation("dialog.achievement.achievement"));
+        achievementSelect.setEnabled(false);
+        achievementSelect.setItemLabelGenerator(this::getTranslation);
+        achievementSelect.setWidthFull();
+        content.add(achievementSelect);
+    }
+
+    private void addComment(VerticalLayout content) {
+        comment = new TextArea();
+        comment.setWidthFull();
+        comment.setHeightFull();
+        comment.setLabel(getTranslation("dialog.log.comment"));
+        comment.setPlaceholder(getTranslation("dialog.log.comment.placeholder"));
+        content.setFlexGrow(1, comment);
+        content.add(comment);
+    }
+
+    private void addGroupSelect(VerticalLayout content) {
+        groupSelect = new Select<>();
+        groupSelect.setLabel(getTranslation("dialog.achievement.category"));
+        groupSelect.setItems(Achievement.Group.values());
+        groupSelect.setItemLabelGenerator(this::getTranslation);
+        groupSelect.setWidthFull();
+        groupSelect.addValueChangeListener(e -> selectedGroup(e.getValue()));
+        content.add(groupSelect);
     }
 
     public AchievementDialog(IAchievementService achievementService, Profile profile) {
@@ -126,20 +142,29 @@ public class AchievementDialog extends Dialog {
             achievementSelect.setInvalid(achievementSelect.getValue() == null);
             groupSelect.setInvalid(groupSelect.getValue() == null);
         } else {
-            LogEntry logEntry = new LogEntry(LogEntry.Type.Achievement);
             Achievement achievement = achievementSelect.getValue();
-            logEntry.setTopicId(achievement.getId());
-            logEntry.setDateTime(LocalDateTime.now());
-            logEntry.setComment(comment.getValue());
-            logEntry.setScore(achievement.getScore().clone());
+            LogEntry logEntry = createLogEntry(achievement);
             profile.addLogEntry(logEntry);
-            if (entryListener != null) {
-                entryListener.newLogEntry(logEntry);
-            }
+            notifyEntryListener(logEntry);
 
             Notification.show(getTranslation("dialog.achievement.committed", getTranslation(achievement)));
             close();
         }
+    }
+
+    private void notifyEntryListener(LogEntry logEntry) {
+        if (entryListener != null) {
+            entryListener.newLogEntry(logEntry);
+        }
+    }
+
+    private LogEntry createLogEntry(Achievement achievement) {
+        LogEntry logEntry = new LogEntry(LogEntry.Type.Achievement);
+        logEntry.setTopicId(achievement.getId());
+        logEntry.setDateTime(LocalDateTime.now());
+        logEntry.setComment(comment.getValue());
+        logEntry.setScore(achievement.getScore().clone());
+        return logEntry;
     }
 
 }

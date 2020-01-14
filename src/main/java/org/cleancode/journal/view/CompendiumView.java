@@ -63,6 +63,10 @@ public class CompendiumView extends Composite<VerticalLayout> implements Browser
 
         content.add(new AddSpeedDial(profile, gradeService, achievementService));
 
+        enableResizeListener();
+    }
+
+    private void enableResizeListener() {
         UI.getCurrent().getPage().addBrowserWindowResizeListener(this);
         UI.getCurrent().getPage().retrieveExtendedClientDetails(details -> resizeTable(details.getWindowInnerWidth()));
     }

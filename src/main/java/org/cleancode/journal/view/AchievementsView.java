@@ -30,7 +30,6 @@ public class AchievementsView extends Composite<VerticalLayout> {
         this.achievementService = achievementService;
 
         Map<Achievement.Group, List<Achievement>> achievements = achievementService.loadAllAchievementsInGroups();
-
         achievements.keySet().stream().sorted().map(achievements::get).forEach(this::addAchievements);
 
         getContent().add(new AddSpeedDial(profile, gradeService, achievementService));
@@ -39,7 +38,6 @@ public class AchievementsView extends Composite<VerticalLayout> {
     public void addAchievements(List<Achievement> achievements) {
         String groupName = getTranslation(achievements.iterator().next().getGroup());
         getContent().add(new H3(groupName));
-
         achievements.forEach(this::addAchievement);
     }
 

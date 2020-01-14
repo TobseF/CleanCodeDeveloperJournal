@@ -44,7 +44,7 @@ public class JournalView extends Composite<VerticalLayout> {
     private final IProgressService progressService;
     private final GradeService gradeService;
     private final Profile profile;
-    private final VerticalLayout log;
+    private VerticalLayout log;
     private VerticalLayout favorites;
 
     public JournalView(IProgressService progressService, GradeService gradeService, Profile profile, IAchievementService achievementService) {
@@ -61,12 +61,8 @@ public class JournalView extends Composite<VerticalLayout> {
 
         addGradeOverview(gradeService, currentGrade);
 
-        log = new VerticalLayout();
-        log.setPadding(false);
-        log.setSizeFull();
-        content.add(log);
+        addLog(content);
         bindLogEntries();
-
 
         AddSpeedDial addSpeedDial = new AddSpeedDial(profile, gradeService, achievementService);
         //noinspection Convert2Lambda - Using a lamda would break the serialisation
@@ -77,6 +73,13 @@ public class JournalView extends Composite<VerticalLayout> {
             }
         });
         content.add(addSpeedDial);
+    }
+
+    private void addLog(VerticalLayout content) {
+        log = new VerticalLayout();
+        log.setPadding(false);
+        log.setSizeFull();
+        content.add(log);
     }
 
     private void bindLogEntries() {
@@ -204,24 +207,19 @@ public class JournalView extends Composite<VerticalLayout> {
     }
 
     private ProgressDay mapEntityToUiModel(Day day) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy").withLocale(getLocale());
-
-        ProgressDay progressDay = new ProgressDay(formatter.format(day.getDate()));
-        switch (day.getType()) {
-            case Empty:
-                progressDay.setProgress(ProgressDay.Progress.Unknown);
-                break;
-            case Fulfilled:
-                progressDay.setProgress(ProgressDay.Progress.SubmittedOK);
-                break;
-            case PartialFulfilled:
-                progressDay.setProgress(ProgressDay.Progress.Submitted);
+        ProgressDay progressDay = new ProgressDay(format(day.getDate()));
+        if (day.isSubmitted()) {
+            progressDay.setDaySubmitted();
         }
         if (day.getDate().isAfter(LocalDate.now())) {
-            progressDay.setProgress(ProgressDay.Progress.Future);
+            progressDay.setDayInFuture();
         }
         return progressDay;
+    }
+
+    private String format(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy").withLocale(getLocale());
+        return formatter.format(date);
     }
 
     @PostConstruct
