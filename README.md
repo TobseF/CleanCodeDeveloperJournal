@@ -1,7 +1,8 @@
 # 📓 Clean Code Journal
 [![Vaadin-14](https://img.shields.io/badge/Vaadin-14.1.3-blue.svg?style=flat)](https://vaadin.com/)
 [![Java-12](https://img.shields.io/badge/Java-12-red.svg?style=flat&logo=Java&logoColor=white)](https://www.oracle.com/technetwork/java/javase/12-relnote-issues-5211422.html)
-[![Spring-Boot](https://img.shields.io/badge/Spring_Boot-2.2.2-green.svg?style=flat&logo=Springt&logoColor=white)](https://vaadin.com/)
+[![Spring-Boot](https://img.shields.io/badge/Spring_Boot-2.2.2-6DB33F.svg?style=flat&logo=Springt&logoColor=white)](https://vaadin.com/)
+[![BCH compliance](https://bettercodehub.com/edge/badge/TobseF/CleanCodeDeveloperJournal?branch=dev)](https://bettercodehub.com/)
 
 ### 🌍 Live demo: [Clean-Code.rocks](http://clean-code.rocks)
 
