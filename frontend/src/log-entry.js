@@ -6,7 +6,7 @@ class LogEntry extends PolymerElement {
     static get template() {
         return html`<style>
     #logentry {
-        width: 380px;
+        width: 445px;
     }
 
     #header {

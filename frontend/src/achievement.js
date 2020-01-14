@@ -11,7 +11,7 @@ class Achievement extends PolymerElement {
 
     #achievement {
         background-color: #101217;
-        width: 360px;
+        width: 435px;
         border-radius: 5px;
         padding: 8px;
         cursor: pointer;
