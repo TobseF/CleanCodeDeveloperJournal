@@ -27,7 +27,7 @@ public class GradeProgressBar extends FlexLayout {
         }
 
         private void addToolTip(String tooltip) {
-            addClassName("tooltip");
+                        addClassName("tooltip");
             Span span = new Span(tooltip);
             span.addClassName("tooltiptext");
             span.addClassName("tooltip-bottom");
