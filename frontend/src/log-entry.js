@@ -1,5 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icon/iron-icon';
+import '@vaadin/vaadin-material-styles/color';
 
 class LogEntry extends PolymerElement {
 
@@ -58,7 +59,7 @@ class LogEntry extends PolymerElement {
     #content {
         display: flex;
         flex-direction: column;
-        background-color: #101217;
+        background-color: var(--material-secondary-background-color);
         border-radius: 5px;
         padding: 5px;
     }

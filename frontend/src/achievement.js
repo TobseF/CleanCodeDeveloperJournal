@@ -1,5 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icon/iron-icon';
+import '@vaadin/vaadin-material-styles/color';
 
 class Achievement extends PolymerElement {
 
@@ -10,7 +11,7 @@ class Achievement extends PolymerElement {
     }
 
     #achievement {
-        background-color: #101217;
+        background-color: var(--material-secondary-background-color);
         width: 435px;
         border-radius: 5px;
         padding: 8px;

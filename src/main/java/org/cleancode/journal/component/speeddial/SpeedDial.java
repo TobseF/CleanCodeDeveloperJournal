@@ -1,9 +1,11 @@
 package org.cleancode.journal.component.speeddial;
 
 import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.charts.model.style.Color;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.shared.Registration;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -16,6 +18,7 @@ public class SpeedDial extends Component implements HasEnabled {
     public SpeedDialAction addMenuItem(String item, Icon icon) {
         SpeedDialAction speedDialAction = new SpeedDialAction(item, icon);
         getElement().appendChild(speedDialAction.getElement());
+
         return speedDialAction;
     }
 
@@ -66,6 +69,44 @@ public class SpeedDial extends Component implements HasEnabled {
         public ClickEvent(SpeedDial source, boolean fromClient) {
             super(source, fromClient);
         }
+    }
 
+    /**
+     * @param color The background color of the Floating Action Button
+     */
+    public void setColorAction(String color) {
+        setStyle("--paper-fab-speed-dial-action-background", color);
+    }
+
+    /**
+     * @param color The background color of the Floating Action Button
+     */
+    public void setColor(String color) {
+        setStyle("--paper-fab-speed-dial-background", color);
+    }
+
+    /**
+     * @param marginRight Margin to the right of the screen (default: 16px)
+     */
+    public void setMarginRight(String marginRight) {
+        setStyle("--paper-fab-speed-dial-right", marginRight);
+    }
+
+    /**
+     * @param name  the style property name as camelCase, not <code>null</code>
+     * @param color the color property value (if <code>null</code>, the property
+     *              will be removed)
+     */
+    private Style setColor(String name, Color color) {
+        return setStyle(name, color.toString());
+    }
+
+    /**
+     * @param name  the style property name as camelCase, not <code>null</code>
+     * @param value the style property value (if <code>null</code>, the property
+     *              will be removed)
+     */
+    private Style setStyle(String name, String value) {
+        return getElement().getStyle().set(name, value);
     }
 }

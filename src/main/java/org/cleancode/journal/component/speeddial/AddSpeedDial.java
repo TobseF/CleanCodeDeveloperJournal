@@ -24,6 +24,9 @@ public class AddSpeedDial extends SpeedDial {
         this.gradeService = gradeService;
         this.achievementService = achievementService;
         setBackdrop(false);
+        setMarginRight("32px");
+        setColor("var(--material-primary-text-color)");
+        setColorAction("var(--material-primary-text-color)");
         addMenuItem(getTranslation("app.action.add.log-achievement"), TROPHY.create(), e -> activateAchievement());
         addMenuItem(getTranslation("app.action.add.log-block"), NOTEBOOK.create(), e -> createNote());
     }
