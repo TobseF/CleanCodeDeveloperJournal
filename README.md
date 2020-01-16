@@ -99,3 +99,12 @@ You are free to:
 This licence does **NOT** apply to the Clean Code Dev content stored in the `grade_x.json` files.
  
 No commercial Vaadin components are used in this project. So you don't need a Vaadin Pro subscription to run, start or debug it.
+
+## ⚡ Troubleshooting
+
+#### Cannot resolve custom CSS property
+Polymer templates can access CSS Properties of the Vaadin theme.
+The theme is also available as web component. But this prevents the IDE to resolve a CSS property because it's stored as a JS String instead of a CSS file.  
+So we have to ignore this warning:  
+> Cannot resolve '--material-secondary-background-color' custom property
+ 
