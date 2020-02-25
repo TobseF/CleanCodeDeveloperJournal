@@ -36,6 +36,12 @@ It uses free open source Vaadin Components, so you don't need a Vaadin Pro subsc
 
 If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
 
+## 🔁 Auto Restart
+For fast compile -> see-changes roundtrips the 
+[Spring Developer Tolls](https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-devtools.html)
+are enabled. Every change on the classpath will trigger a server restart. So you can just compile _F9_ in the IDE and 
+hit _F5_ ibn the Browser to see the changes. You can disble it, by deleting the `spring-devtools.properties` file.
+
 ## 🔧 Config
 For editing I18N property files, make sure you use UTF-8 encoding. In IntelliJ:  
 _File > Settings > Editor > File Encodings > Properties Files > Default encoding: UTF-8_ 

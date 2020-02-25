@@ -1,12 +1,10 @@
 package org.cleancode.journal.component.logentry;
 
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.templatemodel.TemplateModel;
 
 import static org.cleancode.journal.util.IconUtil.getIcon;
 
-@NpmPackage(value = "@polymer/iron-icons", version = "3.0.0")
 public interface LogEntryModel extends TemplateModel {
 
     String getTypeicon();
