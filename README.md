@@ -3,8 +3,9 @@
 [![Java-17](https://img.shields.io/badge/Java-12-red.svg?style=flat&logo=Java&logoColor=white)](https://www.oracle.com/technetwork/java/javase/12-relnote-issues-5211422.html)
 [![Spring-Boot](https://img.shields.io/badge/Spring_Boot-2.6.4-6DB33F.svg?style=flat&logo=Springt&logoColor=white)](https://vaadin.com/)
 [![BCH compliance](https://bettercodehub.com/edge/badge/TobseF/CleanCodeDeveloperJournal?branch=dev)](https://bettercodehub.com/)
+[![Docker Hub](https://img.shields.io/badge/Docker_Hub-1.0.3-2496ed.svg?style=flat&logo=Docker&logoColor=white)](https://hub.docker.com/repository/docker/tobsef/clean-code-developer-demo)
 
-### 🌍 Live demo: [Clean-Code.rocks](http://clean-code.rocks)
+### 🌍 Live demo: [Clean-Code.rocks](https://clean-code.app.tobse.eu)
 
 > A sample project for Vaadin Flow and Spring Boot
 
@@ -15,24 +16,30 @@ This web-app helps you to keep the track and reminds you in your current grade g
 Log your progress and get achievements for your goals 🏆.
 
 This project was built as a sample application for a [Vaadin 14](https://vaadin.com/) progressive web app. 
-It uses [Spring Boot](https://spring.io/projects/spring-boot) and runs on [Java 12](https://jdk.java.net/13/).
+It uses [Spring Boot](https://spring.io/projects/spring-boot) and runs on [JDK 17](https://jdk.java.net/17/).
 
 It uses free open source Vaadin Components, so you don't need a Vaadin Pro subscription to run, start or debug it. 
 
 ❤ The samples contain content from https://clean-code-developer.de. 
   Big thank you to [Ralf Westphal](https://ralfw.de/) who allowed me to use it for this sample. 
+
+## 🐳 Docker
+
+A prebuild docker image is available at [Docker Hub](https://hub.docker.com/repository/docker/tobsef/clean-code-developer-demo).  
+You can start it with the provided `docker-compose.yml`.  
+Or if you want to build your own image just use the `dockerfile`. 
   
 ## 🚀 Start
 
 **Requirements:**
- * Installed [JDK 12](https://jdk.java.net/13/), or higher.
+ * Installed [JDK 17](https://jdk.java.net/17/), or higher.
  * Installed [Node JS 10](https://nodejs.org/en/download/) or later.  
    Make sure you have the node package manager `npm` on your _PATH_.
 
 **Start:**
  1. Import the project to the IDE of your choosing as a Maven project.  
  2. To run WebApp just execute the maven task `mvn spring-boot:run` or run the `Application` class in your IDE.  
- 3. Open http://localhost:8080 in a browser.
+ 3. Open http://localhost:8090 in a browser.
 
 If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
 

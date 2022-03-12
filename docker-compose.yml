@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  clean-code-app:
+    image: tobsef/clean-code-developer-demo:1.0.3
+    ports:
+      - "8081:8090"
